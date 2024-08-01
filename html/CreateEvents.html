@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Event</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevents scrolling */
+        }
+        .bg {
+            background-image: url('../img/CreateEventsPage2.png'); /* Replace with your nature image path */
+            height: 100vh; /* Full viewport height */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        .header {
+            position: absolute;
+            top: 20px; /* Adjust this value to move the header down */
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 20px; /* Increased font size */
+            color: white;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 20px;
+            transition: color 0.3s;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .header a:hover {
+            color: #d0f0c0; /* Light green hover effect */
+        }
+        .content {
+            display: flex;
+            align-items: center;
+            margin-left: 490px;
+            padding-top: 70px; /* Adjusted to move form up */
+        }
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 900px; /* Increased width */
+            width: 100%;
+            margin-top: 100px;
+            padding: 30px; /* Increased padding */
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.2); /* Slightly transparent background */
+            backdrop-filter: blur(0.1rem); /* Minimal blur effect */
+        }
+        .form-section {
+            flex: 1 1 48%; /* Adjusts width of each part */
+            padding: 20px; /* Increased padding */
+            box-sizing: border-box;
+        }
+        .form-container h1 {
+            margin-bottom: 20px;
+            font-size: 32px; /* Larger font size */
+            color: #ffffff; /* White text color */
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            text-align: center;
+        }
+        .form-section input, .form-section select, .form-section textarea {
+            width: 100%;
+            height: 70px; /* Increased height */
+            padding: 15px; /* Increased padding */
+            margin: 10px 0;
+            border: 1px solid #a8d5ba; /* Light green border */
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent input background */
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .form-section input[type="radio"] {
+            width: auto;
+            margin: 0 10px 0 0;
+        }
+        .form-section label {
+            color: #ffffff; /* White label color */
+            margin: 0 10px 0 0;
+            font-size: 18px; /* Increased font size */
+        }
+        .form-section .visibility-group {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .form-section button {
+            padding: 15px 25px; /* Increased padding */
+            background-color: #7cb393; /* Light green button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-size: 18px; /* Increased font size */
+        }
+        .form-section button:hover {
+            background-color: #1b4d2e; /* Darker green on hover */
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <div class="header">
+            <a href="#">Home</a>
+            <a href="#">Create Events</a>
+            <a href="#">Volunteer</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="content">
+            <div class="form-container">
+                <h1>Create an Event</h1>
+                <div class="form-section">
+                    <input type="text" placeholder="What is your name?" required>
+                    <select required>
+                        <option value="" disabled selected>Select an event category</option>
+                        <option value="conference">Conference</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="seminar">Seminar</option>
+                        <option value="webinar">Webinar</option>
+                        <option value="social">Social</option>
+                    </select>
+                    <input type="text" placeholder="Event Title" required>
+                    <input type="date" required>
+                    <input type="time" required>
+                </div>
+                <div class="form-section">
+                    <input type="text" placeholder="Event Location" required>
+                    <textarea placeholder="Event Description" rows="4" required></textarea>
+                    <div class="visibility-group">
+                        <input type="radio" id="public" name="visibility" value="public" required>
+                        <label for="public">Public</label>
+                        <input type="radio" id="private" name="visibility" value="private" required>
+                        <label for="private">Private</label>
+                    </div>
+                    <button type="submit">Create Event</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            &copy; 2024 Your Company. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

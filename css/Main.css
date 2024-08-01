@@ -1,0 +1,45 @@
+/* General Styles */
+body, html 
+{
+    font-family: serif; /* Changed to serif font */
+    background-image: url('../images/Main.png');
+    background-size: cover;
+    background-attachment: fixed;
+    text-align: center; /* Center text and buttons */
+}
+
+h1 
+{
+    font-size: 6em;
+    padding-top: 145px;
+    color: #ffffff;
+    position: relative;
+}
+
+.slogan 
+{
+    margin-top: -60px;
+    padding-bottom: 70px;
+    font-size: 2.5em;
+    color: #C2CBC2;
+    margin-bottom: 30px;
+}
+
+
+.button 
+{
+    display: block;
+    background-color: #E2E9E0;
+    color: #203713;
+    padding: 30px 50px;
+    margin: 30px auto; 
+    text-decoration: none;
+    font-size: 2.8em;
+    border-radius: 45px;
+    width: 150px; 
+}
+
+.button:hover 
+{
+    background-color: #c6cec3; 
+}

@@ -1,0 +1,86 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: serif; /* Serif font */
+    background-image: url('../images/SignUp.png');
+    background-size: cover;
+    background-attachment: fixed; /* Fix the background image */
+    color: #C2CBC2; /* Default font color for smaller text */
+}
+
+.content {
+    margin-top: 12%;
+    margin-left: 7%
+}
+
+/* Small Text */
+.small-text 
+{
+    font-size: 1.3em;
+    color: #C2CBC2;
+    margin-bottom: -18px;
+}
+
+/* Heading */
+h1 
+{
+    font-size: 2.7em;
+    color: #ffffff;
+    margin-bottom: -20px;
+}
+
+/* Sign-up Link */
+a 
+{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a:hover 
+{
+    text-decoration: underline;
+}
+
+/* Form Styles */
+form 
+{
+    margin-top: 60px;
+    text-align: left;
+    
+}
+
+input[type = "email"],
+input[type = "password"] 
+{
+    display: flex;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 25px;
+    background-color: #C2CBC2;
+    color: #203713;
+    font-size: 1.2em;
+    padding: 18px 40px;
+}
+
+input::placeholder /*Figure out what this one does*/
+{
+    color: #899B89;
+}
+
+/* Button Styles */
+button 
+{
+    
+    padding: 15px 20px;
+    background-color: #ffffff;
+    color: #203713;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2em;
+}
+
+button:hover 
+{
+    background-color: #e2e2e2;
+}

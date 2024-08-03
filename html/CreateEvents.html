@@ -124,21 +124,55 @@
         }
     </style>
 </head>
+<script>
+    async function handleFormSubmit(event) {
+        event.preventDefault();
+        
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+        
+        try {
+            const response = await fetch('http://localhost:8008/createEvent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            alert('Event created successfully!');
+            event.target.reset();
+        } catch (error) {
+            alert('Error creating event: ' + error.message);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', handleFormSubmit);
+    });
+</script>
+</head>
 <body>
-    <div class="bg">
-        <div class="header">
-            <a href="#">Home</a>
-            <a href="#">Create Events</a>
-            <a href="#">Volunteer</a>
-            <a href="#">About Us</a>
-            <a href="#">Contact Us</a>
-        </div>
-        <div class="content">
-            <div class="form-container">
-                <h1>Create an Event</h1>
+<div class="bg">
+    <div class="header">
+        <a href="#">Home</a>
+        <a href="#">Create Events</a>
+        <a href="#">Volunteer</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact Us</a>
+    </div>
+    <div class="content">
+        <div class="form-container">
+            <h1>Create an Event</h1>
+            <form>
                 <div class="form-section">
-                    <input type="text" placeholder="What is your name?" required>
-                    <select required>
+                    <input type="text" name="name" placeholder="What is your name?" required>
+                    <select name="category" required>
                         <option value="" disabled selected>Select an event category</option>
                         <option value="conference">Conference</option>
                         <option value="workshop">Workshop</option>
@@ -146,13 +180,13 @@
                         <option value="webinar">Webinar</option>
                         <option value="social">Social</option>
                     </select>
-                    <input type="text" placeholder="Event Title" required>
-                    <input type="date" required>
-                    <input type="time" required>
+                    <input type="text" name="title" placeholder="Event Title" required>
+                    <input type="date" name="date" required>
+                    <input type="time" name="time" required>
                 </div>
                 <div class="form-section">
-                    <input type="text" placeholder="Event Location" required>
-                    <textarea placeholder="Event Description" rows="4" required></textarea>
+                    <input type="text" name="location" placeholder="Event Location" required>
+                    <textarea name="description" placeholder="Event Description" rows="4" required></textarea>
                     <div class="visibility-group">
                         <input type="radio" id="public" name="visibility" value="public" required>
                         <label for="public">Public</label>
@@ -161,11 +195,12 @@
                     </div>
                     <button type="submit">Create Event</button>
                 </div>
-            </div>
-        </div>
-        <div class="footer">
-            &copy; 2024 Your Company. All rights reserved.
+            </form>
         </div>
     </div>
+    <div class="footer">
+        &copy; 2024 Your Company. All rights reserved.
+    </div>
+</div>
 </body>
 </html>

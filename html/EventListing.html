@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Listing</title>
+    <link rel="stylesheet" href="../css/EventListing.css">
+</head>
+
+<body onload = "displayAllEvents()">
+
+    <div class="main-image"></div>
+    <div class="main-content">
+
+        <div class="filter-form">
+            <form id="filterForm">
+                <label>Category:</label>
+                <select name="category" required>
+                    <option value="" disabled selected>Select an event category</option>
+                    <option value="conference">Conference</option>
+                    <option value="workshop">Workshop</option>
+                    <option value="seminar">Seminar</option>
+                    <option value="webinar">Webinar</option>
+                    <option value="social">Social</option>
+                </select>
+
+                <label>Date:</label>
+                <input type = "date" id = "date" name = "date">
+
+                <label>Time:</label>
+                <input type = "time" id = "time" name = "time">
+
+                <label>Location:</label>
+                <input type = "text" id = "location" name = "location">
+
+                <label>Visibility:</label>
+                <label><input type ="radio" id = "public" name = "visibility" value = "public"> Public</label>
+                <label><input type = "radio" id ="private" name = "visibility" value = "private"> Private</label>
+
+                <button type="submit" id = "filterButton">Filter</button>
+            </form>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="enter title here">
+            <button id="searchButton">Search</button>
+        </div>
+
+        <div class = "central-section" id = "central-section">
+            <!-- Events will be listed here -->
+        </div>
+
+        <div class = "joined-and-created">
+        <div class = "joined-events" id = "joined-events">
+            <div class="header">
+                <span>Joined Events</span>
+                <button id="editJoined">Edit</button>
+            </div>
+            <!-- Joined events will be listed here -->
+        </div>
+
+        <div class="created-events" id = "created-events">
+            <div class="header">
+                <span>Created Events</span>
+                <button id="editCreated">Edit</button>
+            </div>
+            <!-- Created events will be listed here -->
+        </div>
+
+    </div>
+    </div>
+
+    <div class = "footer">
+        &copy; 2024 EventLink. All rights reserved.
+    </div>
+
+    <script src="../javaScript/EventListing.js"></script>
+</body>
+</html>

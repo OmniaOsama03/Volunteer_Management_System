@@ -19,7 +19,7 @@ const eventSchema = new mongoose.Schema(
 const Event = mongoose.model('Event', eventSchema);
  
 // POST route to create an event
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
     try {
         const newEvent = new Event(req.body);
         await newEvent.save();
@@ -30,9 +30,11 @@ router.post('/', async (req, res) => {
 });
  
 // GET route to fetch all events
-router.get('/', async (req, res) => {
-    try {
+router.get('/', async (req, res, next) => {
+    try 
+    {
         const events = await Event.find();
+
         res.status(200).json(events);
     } catch (err) {
         res.status(400).json({ error: err.message });

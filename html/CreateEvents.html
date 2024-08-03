@@ -82,7 +82,7 @@
             transition: border-color 0.3s, box-shadow 0.3s;
             font-size: 18px; /* Increased font size */
         }
-
+ 
         .form-section input[type="radio"] {
             width: auto;
             margin: 0 10px 0 0;
@@ -97,7 +97,7 @@
             align-items: center;
             margin-top: 10px;
         }
-
+ 
         .form-section button {
             padding: 15px 25px; /* Increased padding */
             background-color: #7cb393; /* Light green button */
@@ -124,52 +124,18 @@
         }
     </style>
 </head>
-<script>
-    async function handleFormSubmit(event) {
-        event.preventDefault();
-        
-        const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData.entries());
-        
-        try {
-            const response = await fetch('http://localhost:8008/CreateEvents', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            alert('Event created successfully!');
-            event.target.reset();
-        } catch (error) {
-            alert('Error creating event: ' + error.message);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.querySelector('form');
-        form.addEventListener('submit', handleFormSubmit);
-    });
-</script>
-</head>
 <body>
-<div class="bg">
-    <div class="header">
-        <a href="#">Home</a>
-        <a href="#">Create Events</a>
-        <a href="#">Volunteer</a>
-        <a href="#">About Us</a>
-        <a href="#">Contact Us</a>
-    </div>
-    <div class="content">
-        <div class="form-container">
-            <h1>Create an Event</h1>
-            <form>
+    <div class="bg">
+        <div class="header">
+            <a href="#">Home</a>
+            <a href="#">Create Events</a>
+            <a href="#">Volunteer</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="content">
+            <form class="form-container" onsubmit="handleFormSubmit(event)">
+                <h1>Create an Event</h1>
                 <div class="form-section">
                     <input type="text" name="name" placeholder="What is your name?" required>
                     <select name="category" required>
@@ -197,10 +163,50 @@
                 </div>
             </form>
         </div>
+        <div class="footer">
+            &copy; 2024 Your Company. All rights reserved.
+        </div>
     </div>
-    <div class="footer">
-        &copy; 2024 Your Company. All rights reserved.
-    </div>
-</div>
+    <script>
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+ 
+            const form = event.target;
+            const data = {
+                name: form.elements['name'].value,
+                title: form.elements['title'].value,
+                description: form.elements['description'].value,
+                location: form.elements['location'].value,
+                date: form.elements['date'].value,
+                time: form.elements['time'].value,
+                category: form.elements['category'].value,
+                visibility: form.elements['visibility'].value
+            };
+ 
+            try {
+                const response = await fetch('http://localhost:5000/events', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+ 
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+ 
+                alert('Event created successfully!');
+                form.reset();
+            } catch (error) {
+                alert('Error creating event: ' + error.message);
+            }
+        }
+ 
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', handleFormSubmit);
+        });
+    </script>
 </body>
 </html>

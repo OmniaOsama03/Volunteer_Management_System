@@ -1,46 +1,42 @@
 const express = require('express');
 const router = express.Router();
 
-// Create a new event
+const mongoose = require('mongoose');
+ 
+// Define Event schema and model
+const eventSchema = new mongoose.Schema(
+{
+    name: String,
+    category: String,
+    title: String,
+    date: Date,
+    time: String,
+    location: String,
+    description: String,
+    visibility: String
+});
+ 
+const Event = mongoose.model('Event', eventSchema);
+ 
+// POST route to create an event
 router.post('/', async (req, res) => {
-    const { name, category, title, date, time, location, description, visibility } = req.body;
-
-    // Validate request body
-    if (!name || !category || !title || !date || !time || !location || !description || !visibility) {
-        return res.status(400).json({ message: 'All fields are required' });
-    }
-
-    // Create new event instance
-    const newEvent = new Event({
-        name,
-        category,
-        title,
-        date,
-        time,
-        location,
-        description,
-        visibility
-    });
-
     try {
-        // Save the new event to the database
+        const newEvent = new Event(req.body);
         await newEvent.save();
-        // Send response with the created event
         res.status(201).json(newEvent);
     } catch (err) {
-        // Handle errors (e.g., validation errors, database errors)
-        res.status(400).json({ message: err.message });
+        res.status(400).json({ error: err.message });
     }
 });
-
-// Get all events
+ 
+// GET route to fetch all events
 router.get('/', async (req, res) => {
     try {
-        const events = await Event.find(); // Fetch all events from the database
+        const events = await Event.find();
         res.status(200).json(events);
     } catch (err) {
-        res.status(500).json({ message: 'Error fetching events', error: err.message });
+        res.status(400).json({ error: err.message });
     }
 });
-
+ 
 module.exports = router;

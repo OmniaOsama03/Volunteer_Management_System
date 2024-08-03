@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const nodeman = require('nodemon');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');

@@ -10,6 +10,18 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
+    // Create new event instance
+    const newEvent = new Event({
+        name,
+        category,
+        title,
+        date,
+        time,
+        location,
+        description,
+        visibility
+    });
+
     try {
         // Save the new event to the database
         await newEvent.save();

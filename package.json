@@ -1,0 +1,19 @@
+{
+  "name": "volunteer_management_system",
+  "version": "1.0.0",
+  "description": "A volunteer event management system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Omnia Osama Ahmed, Sara Imad Hamdan",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.4"
+  }
+}

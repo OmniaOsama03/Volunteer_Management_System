@@ -19,7 +19,7 @@ app.use('/events', eventsRoute);
 app.use('/users', usersRoute);
 
 //connect through connection string + specify desired db
-mongoose.connect('mongodb://localhost:27017/EventLink')
+mongoose.connect('mongodb://localhost:27017/Events')
 
 //create a schema
 let userSchema = new mongoose.Schema

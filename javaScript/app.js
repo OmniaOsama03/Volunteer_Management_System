@@ -6,6 +6,9 @@ const cors = require('cors');
 
 const app = express();
 
+
+app.use(express.static('public'));
+
 const eventsRoute = require('./api/roots/events');
 const usersRoute = require('./api/roots/users');
 
@@ -20,21 +23,6 @@ app.use('/users', usersRoute);
 //connect through connection string + specify desired db
 mongoose.connect('mongodb://localhost:27017/Events')
 
-//create a schema
-let userSchema = new mongoose.Schema
-(
-    {
-        firstName : String,
-        LastName : String,
-        email : String, 
-        password : String,
-        isSignedIn: Boolean,
-        createdEvents : Array,
-        joinedEvents : Array
 
-    }
-)
-
-let UserModel = mongoose.model("user", userSchema);
 
 module.exports = app;

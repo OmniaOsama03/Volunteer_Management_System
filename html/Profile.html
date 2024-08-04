@@ -5,74 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile - EventLink</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .profile-info {
-            margin-bottom: 20px;
-        }
-        .profile-info label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .profile-info span {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .edit-container {
-            display: none;
-            margin-bottom: 20px;
-        }
-        .edit-container input {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .edit-container button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #28a745;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .edit-container button:hover {
-            background-color: #218838;
-        }
-        .edit-button, .update-button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .edit-button:hover, .update-button:hover {
-            background-color: #0056b3;
-        }
+        /* Add your CSS styles here */
     </style>
 </head>
 <body>
@@ -81,13 +14,13 @@
         
         <div class="profile-info">
             <label for="displayFirstName">First Name:</label>
-            <span id="displayFirstName">John</span>
+            <span id="displayFirstName"></span>
 
             <label for="displayLastName">Last Name:</label>
-            <span id="displayLastName">Doe</span>
+            <span id="displayLastName"></span>
 
             <label for="displayEmail">Email:</label>
-            <span id="displayEmail">john.doe@example.com</span>
+            <span id="displayEmail"></span>
 
             <label for="displayPassword">Password:</label>
             <span id="displayPassword">******</span>
@@ -105,82 +38,30 @@
     </div>
 
     <script>
-        function enableEditing() {
-            document.querySelector('.profile-info').style.display = 'none';
-            const editContainer = document.querySelector('.edit-container');
-            editContainer.style.display = 'block';
-
-            document.getElementById('editFirstName').value = document.getElementById('displayFirstName').textContent;
-            document.getElementById('editLastName').value = document.getElementById('displayLastName').textContent;
-            document.getElementById('editEmail').value = document.getElementById('displayEmail').textContent;
-            document.getElementById('editPassword').value = ''; // do not show actual password
+       // In profile.html script
+async function loadProfile() {
+    try {
+        const response = await fetch('http://localhost:5000/users/profile', {
+            method: 'GET',
+            credentials: 'include' // Include credentials (cookies) with the request
+        });
+        if (!response.ok) {
+            throw new Error('Failed to load profile');
         }
 
-        function updateProfile() {
-            const firstName = document.getElementById('editFirstName').value;
-            const lastName = document.getElementById('editLastName').value;
-            const email = document.getElementById('editEmail').value;
-            const password = document.getElementById('editPassword').value;
+        const userData = await response.json();
 
-            fetch('http://localhost:5000/users/update', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email,
-                    firstName,
-                    lastName,
-                    password
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                alert('Profile updated successfully!');
-                document.getElementById('displayFirstName').textContent = firstName;
-                document.getElementById('displayLastName').textContent = lastName;
-                document.getElementById('displayEmail').textContent = email;
-                document.getElementById('displayPassword').textContent = '******'; // update password to hidden
+        document.getElementById('displayFirstName').textContent = userData.firstName || 'N/A';
+        document.getElementById('displayLastName').textContent = userData.lastName || 'N/A';
+        document.getElementById('displayEmail').textContent = userData.email || 'N/A';
+        document.getElementById('displayPassword').textContent = '******'; // Display a placeholder
+    } catch (error) {
+        alert(error.message);
+    }
+}
 
-                document.querySelector('.edit-container').style.display = 'none';
-                document.querySelector('.profile-info').style.display = 'block';
-            })
-            .catch(error => {
-                alert('Error updating profile: ' + error.message);
-            });
-        }
+document.addEventListener('DOMContentLoaded', loadProfile);
 
-        function loadUserProfile() {
-            const email = localStorage.getItem('userEmail');
-            if (!email) {
-                alert('No user email found. Please log in again.');
-                return;
-            }
-
-            fetch(`http://localhost:5000/users/profile/${email}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    document.getElementById('displayFirstName').textContent = data.firstName;
-                    document.getElementById('displayLastName').textContent = data.lastName;
-                    document.getElementById('displayEmail').textContent = data.email;
-                    document.getElementById('displayPassword').textContent = '******'; // never show actual password
-                })
-                .catch(error => {
-                    alert('Error loading profile: ' + error.message);
-                });
-        }
-
-        document.addEventListener('DOMContentLoaded', loadUserProfile);
     </script>
 </body>
 </html>

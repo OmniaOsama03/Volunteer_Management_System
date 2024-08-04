@@ -69,8 +69,8 @@
                         feedback.textContent = 'Strong Password';
                     } else {
                         let errorMessage = 'Weak Password: ';
-                        if (!response.hasCapitalLetter) errorMessage += 'Needs a capital letter. ';
-                        if (!response.hasNumber) errorMessage += 'Needs a number. ';
+                        if (!response.hasCapital) errorMessage += 'Needs a capital letter. ';
+                        if (!response.hasNum) errorMessage += 'Needs a number. ';
                         if (!response.isLongEnough) errorMessage += 'Needs to be at least 8 characters long.';
                         feedback.textContent = errorMessage;
                     }

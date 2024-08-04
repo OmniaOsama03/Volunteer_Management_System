@@ -7,6 +7,7 @@ const cors = require('cors');
 const app = express();
 
 
+
 app.use(express.static('public'));
 
 const eventsRoute = require('./api/roots/events');

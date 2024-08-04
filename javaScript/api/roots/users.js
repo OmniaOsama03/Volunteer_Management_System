@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true },
     password: String, // This will store the encrypted password
     createdEvents: [String],
-    joinedEvents: [String]
+    joinedEvents: [String],
+    isSignedIn : Boolean
 });
 
 // Create the model
@@ -39,6 +40,7 @@ router.post('/', async (req, res) => {
         const lastName = req.body.lastName;
         const email = req.body.email;
         const password = req.body.password;
+        const isSignedIn = true; //automatic sign-in happens with account creation
         
         // Check if the email already exists
         const existingUser = await User.findOne({ email });
@@ -48,7 +50,7 @@ router.post('/', async (req, res) => {
 
         // Encrypt the password before saving
         const encryptedPassword = encrypt(password, secretKey);
-        const newUser = new User({ firstName, lastName, email, password: encryptedPassword });
+        const newUser = new User({ firstName, lastName, email, password: encryptedPassword, isSignedIn });
         await newUser.save();
         res.status(201).json(newUser);
     } catch (err) {
@@ -118,7 +120,15 @@ router.post('/login', async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ error: 'Invalid email or password' });
         }
-        res.json({ message: 'Login successful' });
+
+        //updating the isSignedin variable if login is successful
+        User.updateOne({ email }, { $set: { isSignedIn: true } })
+                .then(() => {
+                    res.json({ message: 'Login successful' });
+                })
+                .catch(err => {
+                    res.status(500).json({ error: 'Error updating user status' });
+                });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

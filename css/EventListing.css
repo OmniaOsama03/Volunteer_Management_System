@@ -54,24 +54,6 @@ select {
 }
 
 
-.filter-form button 
-{
-    background-color: #899B89;
-    color: #203713;
-    padding: 10px;
-    border: none;
-    border-radius: 25px;
-    font-size: 1em;
-    width: 40%;
-    margin-top: 10px;
-    margin-left: 100px;
-}
-
-.filter-form button:hover
-{
-    background-color: #6b7c6b;
-}
-
 /* Central Section */
 .central-section 
 {

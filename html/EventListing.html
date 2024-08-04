@@ -15,7 +15,7 @@
         <div class="filter-form">
             <form id="filterForm">
                 <label>Category:</label>
-                <select name="category" required>
+                <select id = "category" onchange="filterEvents()">
                     <option value="" disabled selected>Select an event category</option>
                     <option value="conference">Conference</option>
                     <option value="workshop">Workshop</option>
@@ -25,25 +25,21 @@
                 </select>
 
                 <label>Date:</label>
-                <input type = "date" id = "date" name = "date">
-
-                <label>Time:</label>
-                <input type = "time" id = "time" name = "time">
+                <input type = "date" id = "date" name = "date" onchange="filterEvents()">
 
                 <label>Location:</label>
-                <input type = "text" id = "location" name = "location">
+                <input type = "text" id = "location" name = "location" onchange="filterEvents()">
 
                 <label>Visibility:</label>
-                <label><input type ="radio" id = "public" name = "visibility" value = "public"> Public</label>
-                <label><input type = "radio" id ="private" name = "visibility" value = "private"> Private</label>
+                <label><input type="checkbox" id = "public" value = "public" onchange="filterEvents()"> Public</label>
+                <label><input type="checkbox" id ="private"  value = "private" onchange="filterEvents()"> Private</label>
 
-                <button type="submit" id = "filterButton">Filter</button>
             </form>
         </div>
 
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="enter title here">
-            <button id="searchButton">Search</button>
+            <input type="text" id = "searchInput" placeholder="enter title here...">
+            <button id="searchButton"  onclick = "searchEvent()">Search</button>
         </div>
 
         <div class = "central-section" id = "central-section">

@@ -158,7 +158,8 @@ select {
 }
 
 /* Event Item */
-.event-item {
+.event-item 
+{
     background-color: #899B89;
     color: 203713;
     padding: 20px;
@@ -171,6 +172,47 @@ select {
 {
     margin-left: 30px;
 }
+
+.joined-event-item 
+{
+    background-color: #899B89;
+    color: 203713;
+    padding: 2px;
+    margin-top : 10px;
+    border-radius: 25px;
+    margin-bottom: 20px; /* Space between event divs */
+    position: relative; /* Allows absolute positioning of button */
+    padding-bottom: 20px;
+}
+
+.joined-event-item h3
+{
+    margin-left: 17px;
+}
+
+.joined-event-info
+{
+    margin-left: 30px;
+}
+
+.no-events-message 
+{
+    text-align: center;
+    font-size: 2.5em; 
+    color: #203713; 
+    margin-top: 20px; 
+    padding: 20px; 
+}
+
+.no-joined-events-message 
+{
+    text-align: center;
+    font-size: 1.3em; 
+    color: #203713; 
+    margin-top: 20px; 
+    padding: 20px; 
+}
+
 /* Register Button */
 .register-button 
 {
@@ -191,11 +233,98 @@ select {
     background-color: #b1b8b1;
 }
 
-.no-events-message 
+
+.delete-joined, .delete-created
 {
+    background-color: #C2CBC2;
+    color: #203713;
+    border: none;
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-size: 0.8em;
+    position: absolute; /* Positioned on the right side */
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+    display: none;
+}
+
+.delete-joined:hover, .delete-created:hover
+{
+    background-color: #b1b8b1;
+}
+
+.delete-button
+{
+    /*background-color: #899B89;*/
+    background-color: #b44745;
+    color: #ffffff;
+    border: none;
+    border-radius: 18px;
+    padding: 15px;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.delete-button:hover
+{
+    background-color: #c71d1d;
+}
+
+.popup 
+{
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000; /* On top of other content */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dim background */
+}
+
+.popup-content 
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color:  #b1b8b1;;
+    padding: 90px 80px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    font-size: 2em; 
-    color: #203713; 
-    margin-top: 20px; 
-    padding: 20px; 
+    color: #333;
+}
+
+.popup-content p 
+{
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.popup-content a
+{
+    color: #333;;
+}
+
+.popup-content a:hover
+{
+    color: white;
+}
+
+.close 
+{
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.close:hover
+{
+    color: white;
 }

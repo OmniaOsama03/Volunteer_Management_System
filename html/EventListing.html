@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/EventListing.css">
 </head>
 
-<body onload = "displayAllEvents()">
+<body onload = "displayAllEvents(); displayJoinedEvents()">
 
     <div class="main-image"></div>
     <div class="main-content">
@@ -37,6 +37,14 @@
             </form>
         </div>
 
+        <div id = "popup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <div id = "popupMessage"> </div>
+            </div>
+        </div>
+
+
         <div class="search-bar">
             <input type="text" id = "searchInput" placeholder="enter title here...">
             <button id="searchButton"  onclick = "searchEvent()">Search</button>
@@ -47,20 +55,27 @@
         </div>
 
         <div class = "joined-and-created">
-        <div class = "joined-events" id = "joined-events">
+        <div class = "joined-events">
             <div class="header">
                 <span>Joined Events</span>
-                <button id="editJoined">Edit</button>
+                <button id = "editJoined" onclick = "editJoined()">Edit</button>
             </div>
+
+            <div id = "joined-events">
             <!-- Joined events will be listed here -->
+            </div>
+
         </div>
 
-        <div class="created-events" id = "created-events">
+        <div class="created-events">
             <div class="header">
                 <span>Created Events</span>
-                <button id="editCreated">Edit</button>
+                <button id = "editCreated" onclick = "editCreated()">Edit</button>
             </div>
+
+            <div id = "created-events">
             <!-- Created events will be listed here -->
+            </div>
         </div>
 
     </div>

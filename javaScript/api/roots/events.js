@@ -30,17 +30,17 @@ router.post('/', async (req, res, next) => {
 });
  
 // GET route to fetch all events
-router.get('/', async (req, res, next) => {
-    try 
-    {
-        const events = await Event.find();
-
-        res.status(200).json(events);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
+router.get('/',  (req, res, next) => 
+{
+    Event.find()
+        .then(events => {
+            res.status(200).json(events);
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'Error fetching events', details: err.message });
+        });
 });
- 
+
 //GET route to filter events based on category, date, location, &
 router.get('/filter', async (req, res) => {
 
@@ -113,6 +113,23 @@ router.get('/search', (req, res) =>
         });
 }
     
+});
+
+//To retreive the event id based on the title
+router.get('/findEventId/:title', (req, res) => 
+{
+    const title = req.params.title;
+
+    console.log("THE TITLE IN QUESTION: " + title)
+
+    Event.findOne({ title: title }).then(event => 
+        {
+            res.status(200).json(event);
+            
+        }).catch(error => 
+        {
+            res.status(500).json({ message: 'Error fetching events', error });
+        });
 });
 
 module.exports = router;

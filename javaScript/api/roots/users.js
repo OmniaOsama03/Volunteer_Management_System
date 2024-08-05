@@ -443,9 +443,59 @@ router.get('/findUser', (req, res) =>
                     {
                         res.status(200).json(user.createdEvents);  
                     })
-                    .catch(err => {
+                    .catch(err => 
+                    {
                         res.status(500).json({ error: 'Error fetching user', details: err.message });
                     });
             });
 
-            module.exports = router; 
+            // Endpoint to delete a joined event for a user
+            router.delete('/deleteJoinedEvent/:userId/:eventId', (req, res) => 
+            {
+                const userId = req.params.userId;
+                const eventId = req.params.eventId;
+
+                // Find the user who has joined the event
+                User.findOne({ _id: userId, joinedEvents: eventId }).then(user => 
+                {
+                        // Remove the event from the user's joinedEvents array
+                        user.joinedEvents = user.joinedEvents.filter(event => event !== eventId);
+
+                        // Save the updated user document
+                        user.save();
+                        
+                    }).then(() => 
+                    {
+                        res.status(200).json({ message: 'Event successfully removed from joined events' });
+                    })
+                    .catch(err => {
+                        res.status(500).json({ message: 'Error deleting event from joined events', error: err.message });
+                    });
+            });
+
+             // Endpoint to delete a joined event for a user
+             router.delete('/deleteCreatedEvent/:userId/:eventId', (req, res) => 
+                {
+                    const userId = req.params.userId;
+                    const eventId = req.params.eventId;
+    
+                    // Find the user who has joined the event
+                    User.findOne({ _id: userId, createdEvents: eventId }).then(user => 
+                    {
+                            // Remove the event from the user's joinedEvents array
+                            user.createdEvents = user.createdEvents.filter(event => event !== eventId);
+    
+                            // Save the updated user document
+                            user.save();
+                            
+                        }).then(() => 
+                        {
+                            res.status(200).json({ message: 'Event successfully removed from created events' });
+                        })
+                        .catch(err => {
+                            res.status(500).json({ message: 'Error deleting event from created events', error: err.message });
+                        });
+                });
+
+        
+        module.exports = router; 

@@ -356,12 +356,12 @@
 </head>
 <body>
     <header></header>
+
     <div class="header">
-        <a href="HomePage.html" style="text-decoration:underline;">Home</a>
+        <a href="HomePage.html">Home</a>
         <a href="CreateEvents.html">Create Events</a>
         <a href="EventListing.html">View Events</a>
         <a href="AboutDevelopers.html">About Developers</a>
-        <a href="Profile.html">Profile</a>
         <button id="logoutButton" class="logout-button">Logout</button>
     </div>
 
@@ -792,16 +792,11 @@ async function checkEmailExists(email) {
 
             alert('Logout successful!');
             window.location.href = 'SignIn.html'; // Redirect to sign-in page
+            
         } catch (error) {
             alert('Error logging out: ' + error.message);
         }
     });
-
-
-
-
-
-
 
     </script>
            

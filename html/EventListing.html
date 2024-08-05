@@ -7,7 +7,31 @@
     <link rel="stylesheet" href="../css/EventListing.css">
 </head>
 
-<body onload = "displayAllEvents(); displayJoinedEvents()">
+<body onload = "displayAllEvents(); displayJoinedEvents(); isSignedIn()">
+ 
+    <div class = "navBar">
+        <a href="HomePage.html">Home</a>
+        <a href="CreateEvents.html">Create Events</a>
+        <a href="EventListing.html">View Events</a>
+        <a href="AboutDevelopers.html">About Developers</a>
+    </div>
+
+    <div id = "auth-buttons">
+        <button onclick = "signIn()">Sign In</button>
+        <button onclick = "signUp()">Sign Up</button>
+    </div>
+    
+    <div id="dim-overlay"></div>
+
+    <div id="pfp-container" onmouseenter="hoverOnPfp()" onmouseleave="notHoveringOnPfp()">
+        <img id="pfp" src="../images/pfp.png" alt="Profile Picture">
+
+        <div id="pfp-menu">
+            <button onclick="viewProfile()">View Profile</button>
+            <button onclick="logOut()">Log Out</button>
+        </div>
+
+    </div>
 
     <div class="main-image"></div>
     <div class="main-content">

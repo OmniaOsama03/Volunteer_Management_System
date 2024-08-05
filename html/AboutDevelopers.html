@@ -12,6 +12,120 @@
             background-image: url('../images/BackgroundAboutDev.png');
             color: #fff;
         }
+
+        #auth-buttons
+        {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            
+        }
+
+        #auth-buttons button 
+        {
+            background: #52604a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-left: 10px;
+            border-radius: 75px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        #auth-buttons button:hover 
+        {
+            background: #44503b;
+        }
+
+        #dim-overlay 
+        {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50; /* Lower z-index than #pfp-container */
+        }
+
+        #pfp-container 
+        {
+            position: absolute;
+            z-index: 100; /* Higher z-index to stay above the dimmed background */
+            top: 10px;
+            right: 10px;
+            
+        }
+
+        #pfp 
+        {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #pfp-menu 
+        {
+            display: none;
+            position: absolute;
+            top: 60px; /* Adjust as needed */
+            right: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            z-index: 101; /* Slightly higher z-index to stay above the container */
+        }
+
+        #pfp-menu button 
+        {
+            background-color: #52604a;
+            font-size: 0.8em;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        #pfp-menu button:hover 
+        {
+            background-color: #6b7d5c;
+        }
+
+        .navBar {
+            position: absolute;
+            top: 20px; /* Adjust this value to move the header down */
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 20px; /* Increased font size */
+            color: white;
+            z-index: 10; /* Ensure header is above other content */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(0, 0, 0, 0.3); 
+        }
+
+        .navBar a {
+            color: white; /* Updated to match the header text color */
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 20px;
+            transition: color 0.3s;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .navBar a:hover {
+            color: #d0f0c0; /* Light green hover effect */
+        }
+
+
         .header {
             background: rgba(0, 0, 0, 0.7);
             color: #fff;
@@ -103,19 +217,36 @@
         }
     </style>
 </head>
-<body>
-    <div class="header">
+<body onload = isSignedIn() >
+
+    <div class="navBar">
         <a href="HomePage.html">Home</a>
         <a href="CreateEvents.html">Create Events</a>
         <a href="EventListing.html">View Events</a>
         <a href="AboutDevelopers.html">About Us</a>
-        <a href="Profile.html">Profile</a>
     </div>
 
     <header>
         <h1>About Developers</h1>
         <h3>Meet the team behind the project!</h3>
     </header>
+
+    <div id = "auth-buttons">
+        <button onclick = "signIn()">Sign In</button>
+        <button onclick = "signUp()">Sign Up</button>
+    </div>
+
+    <div id="dim-overlay"></div>
+
+    <div id="pfp-container" onmouseenter="hoverOnPfp()" onmouseleave="notHoveringOnPfp()">
+        <img id="pfp" src="../images/pfp.png" alt="Profile Picture">
+
+        <div id="pfp-menu">
+            <button onclick="viewProfile()">View Profile</button>
+            <button onclick="logOut()">Log Out</button>
+        </div>
+
+    </div>
 
     <div class="container">
         <div class="info-box">
@@ -139,5 +270,115 @@
     <div class="footer">
         &copy; 2024 EventLink. All rights reserved.
     </div>
+
+    <script>
+        function signIn() 
+        {
+            window.location.href = '../html/SignIn.html';
+        }
+
+        function signUp() 
+        {
+            window.location.href = '../html/SignUp.html';
+        }
+
+        function isSignedIn() 
+    {
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+    
+    // Define the request method and URL to check if the user is signed in
+    xhr.open('GET', 'http://localhost:5000/users/findUser', true);
+
+    // Define the callback function for when the request completes
+    xhr.onload = function() 
+    {
+        // Parse the JSON response
+        const user = JSON.parse(xhr.responseText);
+        
+        // Check if user is signed in
+        if (user && user._id) 
+        {
+            // User is signed in, hide the sign-in and sign-up buttons, show the pfp
+            document.getElementById('auth-buttons').style.display = 'none';
+            document.getElementById('pfp').style.display = 'block';
+        } else 
+        {
+            // User is not signed in, show the sign-in and sign-up buttons, hide the pfp
+            document.getElementById('auth-buttons').style.display = 'block';
+            document.getElementById('pfp').style.display = 'none';
+        }
+    };
+
+    // Send the request to check if the user is signed in
+    xhr.send();
+}
+        function hoverOnPfp() 
+        {
+            document.getElementById('dim-overlay').style.display = 'block';
+            document.getElementById('pfp').style.transform = 'scale(1.2)';
+            document.getElementById('pfp-menu').style.display = 'block';
+        }
+
+        function notHoveringOnPfp() 
+        {
+            document.getElementById('dim-overlay').style.display = 'none';
+            document.getElementById('pfp').style.transform = 'scale(1)';
+            document.getElementById('pfp-menu').style.display = 'none';
+        }
+
+        function viewProfile() 
+        {
+            // Redirect to the profile page
+            window.location.href = '../html/Profile.html';
+        }
+
+        async function logOut() 
+        {
+            // Handle log out logic
+            try {
+                // Fetch the user who is logged in
+                const response = await fetch('http://localhost:5000/users/getLoggedInUser', {
+                    method: 'GET',
+                    credentials: 'include' // Assuming cookies or similar are used
+                });
+
+                if (!response.ok) {
+                    throw new Error('Unable to fetch user');
+                }
+
+                const user = await response.json();
+
+                if (!user || !user.email) {
+                    alert('No user is currently logged in');
+                    return;
+                }
+
+                // Send logout request
+                const logoutResponse = await fetch('http://localhost:5000/users/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: user.email })
+                });
+
+                if (!logoutResponse.ok) {
+                    const errorData = await logoutResponse.json();
+                    throw new Error(errorData.error || 'Logout failed');
+                }
+
+                alert('Logout successful!');
+                window.location.href = 'SignIn.html'; // Redirect to sign-in page
+            } catch (error) {
+                alert('Error logging out: ' + error.message);
+            }
+        }
+
+        function viewProfile() 
+        {
+            window.location.href = '/html/Profile.html';
+        }
+    </script>
 </body>
 </html>

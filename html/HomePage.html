@@ -6,15 +6,33 @@
     <title>EventLink</title>
     <link rel="stylesheet" href="../css/HomeStyle.css" />
 </head>
-<body>
+<body onload = isSignedIn()>
     <div class="header">
         <a href="HomePage.html" style="text-decoration:underline;">Home</a>
         <a href="CreateEvents.html">Create Events</a>
         <a href="EventListing.html">View Events</a>
         <a href="AboutDevelopers.html">About Developers</a>
         <a href="Profile.html">Profile</a>
-        <button id="logoutButton" style="float: right;" class="logout-button">Logout</button>
     </div>
+
+    <div id = "auth-buttons">
+        <button onclick = "signIn()">Sign In</button>
+        <button onclick = "signUp()">Sign Up</button>
+    </div>
+
+    <div id="dim-overlay"></div>
+
+    <div id="pfp-container" onmouseenter="hoverOnPfp()" onmouseleave="notHoveringOnPfp()">
+        <img id="pfp" src="../images/pfp.png" alt="Profile Picture">
+
+        <div id="pfp-menu">
+            <button onclick="viewProfile()">View Profile</button>
+            <button onclick="logOut()">Log Out</button>
+        </div>
+
+    </div>
+
+
     <header>
         <h1>EventLink</h1>
         <h3>"Connecting Communities, Empowering Volunteers"</h3>
@@ -28,48 +46,6 @@
         &copy; 2024 Your Company. All rights reserved.
     </div>
 
-    <script>
-        document.getElementById('logoutButton').addEventListener('click', async (event) => {
-            event.preventDefault();
-
-            try {
-                // Fetch the user who is logged in
-                const response = await fetch('http://localhost:5000/users/getLoggedInUser', {
-                    method: 'GET',
-                    credentials: 'include' // Assuming cookies or similar are used
-                });
-
-                if (!response.ok) {
-                    throw new Error('Unable to fetch user');
-                }
-
-                const user = await response.json();
-
-                if (!user || !user.email) {
-                    alert('No user is currently logged in');
-                    return;
-                }
-
-                // Send logout request
-                const logoutResponse = await fetch('http://localhost:5000/users/logout', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email: user.email })
-                });
-
-                if (!logoutResponse.ok) {
-                    const errorData = await logoutResponse.json();
-                    throw new Error(errorData.error || 'Logout failed');
-                }
-
-                alert('Logout successful!');
-                window.location.href = 'SignIn.html'; // Redirect to sign-in page
-            } catch (error) {
-                alert('Error logging out: ' + error.message);
-            }
-        });
-    </script>
+    <script src = "../javaScript/HomePage.js"></script>
 </body>
 </html>

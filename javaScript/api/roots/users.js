@@ -203,7 +203,7 @@ router.get('/profile', async (req, res) => {
 
 // PATCH route for updating user profile
 router.patch('/update', async (req, res) => {
-    const { email, currentPassword, newFirstName, newLastName, newEmail } = req.body;
+    const { email, newFirstName, newLastName, newEmail } = req.body;
 
     // Fetch the user
     const user = await User.findOne({ email });
@@ -211,20 +211,28 @@ router.patch('/update', async (req, res) => {
         return res.status(404).json({ error: 'User not found' });
     }
 
-    // Verify current password
-    const decryptedPassword = decrypt(user.password);
-    if (currentPassword !== decryptedPassword) {
-        return res.status(400).json({ error: 'Current password is incorrect' });
+    // Validate newEmail to ensure it contains both '@' and '.'
+    if (newEmail) {
+        let hasAt = false;
+        let hasDot = false;
+        for (let i = 0; i < newEmail.length; i++) {
+            if (newEmail[i] === '@') hasAt = true;
+            if (newEmail[i] === '.') hasDot = true;
+        }
+        if (!hasAt || !hasDot) {
+            return res.status(400).json({ error: 'Email must contain both "@" and "."' });
+        }
+        user.email = newEmail;
     }
 
     // Update user information
     if (newFirstName) user.firstName = newFirstName;
     if (newLastName) user.lastName = newLastName;
-    if (newEmail) user.email = newEmail;
 
     await user.save();
     res.status(200).json({ message: 'Profile updated successfully' });
 });
+
 
 
 
@@ -308,5 +316,30 @@ router.post('/checkEmail', async (req, res) => {
         }
     } catch (error) {
         return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+router.patch('/updateInfo', async (req, res) => {
+    const { newFirstName, newLastName, newEmail } = req.body;
+
+    try {
+        // Find the currently signed-in user
+        const user = await User.findOne({ isSignedIn: true });
+
+        if (!user) {
+            return res.status(404).json({ message: 'No user currently signed in' });
+        }
+
+        // Update user information
+        if (newFirstName) user.firstName = newFirstName;
+        if (newLastName) user.lastName = newLastName;
+        if (newEmail) user.email = newEmail;
+
+        // Save updated user information
+        await user.save();
+        res.json({ message: 'Information updated successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Error updating information' });
     }
 });

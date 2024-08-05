@@ -73,3 +73,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     form.addEventListener('submit', handleFormSubmit);
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    checkUserSignInStatus();
+});
+
+function checkUserSignInStatus() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:5000/users/findUser', true);
+
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            // Parse the JSON response from /findUser
+            const user = JSON.parse(xhr.responseText);
+
+            if (!user || user.isSignedIn === false) {
+                showPopup('<p><a href="/html/SignIn.html">Sign In</a> to create your events!</p><p><a href="/html/HomePage.html"> Go back</p>');
+            } 
+        } else {
+            console.error('Error fetching user status:', xhr.statusText);
+        }
+    };
+
+    xhr.onerror = function() {
+        console.error('Request failed');
+    };
+
+    xhr.send();
+}
+
+
+function showPopup(message) {
+    const popup = document.getElementById('popup');
+    document.getElementById('popupMessage').innerHTML = message;
+    popup.style.display = 'block';
+}

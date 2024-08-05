@@ -172,10 +172,6 @@ router.post('/logout', async (req, res) => {
     }
 });
 
-
-
-
-
 // GET route to fetch the currently signed-in user's information
 router.get('/profile', async (req, res) => {
     try {
@@ -199,7 +195,6 @@ router.get('/profile', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 
 // PATCH route for updating user profile
 router.patch('/update', async (req, res) => {
@@ -234,9 +229,6 @@ router.patch('/update', async (req, res) => {
 });
 
 
-
-
-
 // POST route to verify user's password
 router.post('/verifyPassword', async (req, res) => {
     const { email, password } = req.body;
@@ -258,13 +250,6 @@ router.post('/verifyPassword', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-
-
-
-
-
-
-
 
 module.exports = router; 
 
@@ -343,3 +328,123 @@ router.patch('/updateInfo', async (req, res) => {
         res.status(500).json({ message: 'Error updating information' });
     }
 });
+
+
+
+//GET route to retieve the logged in user
+router.get('/findUser', (req, res) => 
+    {
+        
+
+        User.findOne({ isSignedIn: true })
+            .then(user => 
+            {
+                if (!user) 
+                {
+                    res.status(200).json(null);
+                }
+                else
+                {
+                res.status(200).json(user);
+                }
+            })
+            .catch(error => {
+                res.status(500).json({ message: 'Error fetching user', error });
+            });
+    });
+    
+    router.post('/register/:eventId/:userId', (req, res) => 
+    {
+        const eventId = req.params.eventId;
+        const userId = req.params.userId; 
+    
+        // Find the user who is signed in
+        User.findOne({ _id: userId, isSignedIn: true })
+            .then(user => {
+    
+                // Extract the current joinedEvents and add the new eventId
+                const updatedJoinedEvents = user.joinedEvents;
+
+                if (user.joinedEvents.includes(eventId)) 
+                {
+                    // User is already registered for this event
+                    res.status(400).json({ message: 'You have already registered to this event!' });
+                    
+                }else
+                {
+                updatedJoinedEvents.push(eventId);
+
+                // Update the user's joinedEvents array
+                User.updateOne({ _id: userId }, { $set: { joinedEvents: updatedJoinedEvents } }).then(() => 
+                    {
+                        res.status(200).json({ message: 'Registered successfully to this event!' });
+                    })
+                    .catch(err => {
+                        res.status(500).json({ error: 'Error updating user', details: err.message });
+                    });
+                }
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'Error finding user', details: err.message });
+            });
+        
+    });
+
+    router.post('/createEvent/:eventId/:userId', (req, res) => 
+    {
+        const eventId = req.params.eventId;
+        const userId = req.params.userId;
+    
+        User.findOne({ _id: userId, isSignedIn: true }).then(user => 
+        {
+                
+                // Extract the current createdEvents and add the new eventId
+                const updatedCreatedEvents = user.createdEvents;
+
+                if (!updatedCreatedEvents.includes(eventId)) 
+                {
+                    updatedCreatedEvents.push(eventId);
+                }
+    
+                // Update the user's createdEvents array
+                User.updateOne({ _id: userId }, { $set: { createdEvents: updatedCreatedEvents } }).then(() => 
+                    {
+                        res.status(200).json({ message: 'Event has been successfully created!' });
+                    }).catch(err => 
+                    {
+                        res.status(500).json({ error: 'Error updating user', details: err.message });
+                    });
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'Error finding user', details: err.message });
+            });
+    }); 
+
+    router.get('/getJoinedEvents/:id', (req, res) => 
+        {
+            const userId = req.params.id;
+        
+            User.findOne({ _id: userId, isSignedIn: true })
+                .then(user => 
+                {
+                    res.status(200).json(user.joinedEvents);  
+                })
+                .catch(err => {
+                    res.status(500).json({ error: 'Error fetching user', details: err.message });
+                });
+        });
+
+        router.get('/getCreatedEvents/:id', (req, res) => 
+            {
+                const userId = req.params.id;
+            
+                User.findOne({ _id: userId, isSignedIn: true }).then(user => 
+                    {
+                        res.status(200).json(user.createdEvents);  
+                    })
+                    .catch(err => {
+                        res.status(500).json({ error: 'Error fetching user', details: err.message });
+                    });
+            });
+
+            module.exports = router; 

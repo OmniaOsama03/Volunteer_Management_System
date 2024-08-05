@@ -1,67 +1,515 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile - EventLink</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Page</title>
     <style>
-        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('../images/BackgroundAboutDev.png') no-repeat center center fixed; /* Background image */
+            background-size: cover; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header, footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        #profileContainer {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .profileBox {
+            background: rgba(255, 255, 255, 0.9); /* White transparent background */
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            text-align: center;
+            margin-top: 60px; /* Space for Profile label */
+        }
+
+        .profileBox::before {
+            content: "Profile";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        p {
+            margin: 15px 0;
+            font-size: 18px;
+        }
+
+        .update-button, .update-password-button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .update-button:hover, .update-password-button:hover {
+            background-color: #45a049;
+        }
+
+        .header {
+            position: absolute;
+            top: 20px; /* Adjust this value to move the header down */
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 20px; /* Increased font size */
+            color: white;
+            z-index: 10; /* Ensure header is above other content */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(0, 0, 0, 0.3); 
+        }
+
+        .header a {
+            color: white; /* Updated to match the header text color */
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 20px;
+            transition: color 0.3s;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .header a:hover {
+            color: #d0f0c0; /* Light green hover effect */
+        }
+
+        .footer {
+            position: absolute;
+            bottom: -1320px;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .logout-button {
+            float: right;
+            padding: 10px 20px;
+            margin-top: 5px;
+            margin-right: 10px;
+            background-color: #6aa076;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .logout-button:hover {
+            background-color: #d32f2f;
+        }
+
+        #passwordForm {
+            display: none; /* Initially hidden */
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        #passwordForm input {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        #passwordForm button {
+            margin-top: 10px;
+            background-color: #f44336; /* Red */
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #passwordForm button:hover {
+            background-color: #c62828;
+        }
+
+        .feedback {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>User Profile</h1>
-        
-        <div class="profile-info">
-            <label for="displayFirstName">First Name:</label>
-            <span id="displayFirstName"></span>
-
-            <label for="displayLastName">Last Name:</label>
-            <span id="displayLastName"></span>
-
-            <label for="displayEmail">Email:</label>
-            <span id="displayEmail"></span>
-
-            <label for="displayPassword">Password:</label>
-            <span id="displayPassword">******</span>
+    <header></header>
+    <div class="header">
+        <a href="HomePage.html" style="text-decoration:underline;">Home</a>
+        <a href="CreateEvents.html">Create Events</a>
+        <a href="EventListing.html">View Events</a>
+        <a href="AboutDevelopers.html">About Developers</a>
+        <a href="Profile.html">Profile</a>
+        <button id="logoutButton" class="logout-button">Logout</button>
+    </div>
+    <div id="profileContainer">
+        <div class="profileBox">
+            <p><strong>First Name:</strong> <span id="firstName"></span></p>
+            <p><strong>Last Name:</strong> <span id="lastName"></span></p>
+            <p><strong>Email:</strong> <span id="email"></span></p>
+            <p><strong>Created Events:</strong> <span id="createdEvents"></span></p>
+            <p><strong>Joined Events:</strong> <span id="joinedEvents"></span></p>
+            <button class="update-button" onclick="showUpdateForm()">Update Info</button>
+            <button class="update-password-button" onclick="togglePasswordForm()">Update Password</button>
+            <div id="passwordForm">
+                <input type="password" id="currentPassword" placeholder="Current Password" required />
+                <input type="password" id="newPassword" placeholder="New Password" required />
+                <span id="strengthFeedback" class="feedback"></span>
+                <input type="password" id="confirmPassword" placeholder="Confirm New Password" required />
+                <span id="passwordFeedback" class="feedback"></span>
+                <button onclick="updatePassword()" id="updatePass">Submit New Password</button>
+            </div>
         </div>
-
-        <div class="edit-container">
-            <input type="text" id="editFirstName" placeholder="First Name">
-            <input type="text" id="editLastName" placeholder="Last Name">
-            <input type="email" id="editEmail" placeholder="Email">
-            <input type="password" id="editPassword" placeholder="Password">
-            <button class="update-button" onclick="updateProfile()">Update</button>
-        </div>
-
-        <button class="edit-button" onclick="enableEditing()">Edit Profile</button>
     </div>
 
+    <footer class="footer">
+        &copy; 2024 EventLink. All rights reserved.
+    </footer>
+
     <script>
-       // In profile.html script
-async function loadProfile() {
-    try {
-        const response = await fetch('http://localhost:5000/users/profile', {
-            method: 'GET',
-            credentials: 'include' // Include credentials (cookies) with the request
-        });
-        if (!response.ok) {
-            throw new Error('Failed to load profile');
+        // Function to toggle the visibility of the password form
+        function togglePasswordForm() {
+            const passwordForm = document.getElementById('passwordForm');
+            
+                passwordForm.style.display = passwordForm.style.display === 'none' || passwordForm.style.display === '' ? 'block' : 'none';
+            
         }
 
-        const userData = await response.json();
+        // Function to update the password
+        async function updatePassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
 
-        document.getElementById('displayFirstName').textContent = userData.firstName || 'N/A';
-        document.getElementById('displayLastName').textContent = userData.lastName || 'N/A';
-        document.getElementById('displayEmail').textContent = userData.email || 'N/A';
-        document.getElementById('displayPassword').textContent = '******'; // Display a placeholder
+            // Validate new password and confirm password match
+            if (newPassword !== confirmPassword) {
+                alert('New password and confirmation do not match.');
+                return;
+            }
+
+            // Proceed with password update if validation passes
+            try {
+                const email = document.getElementById('email').textContent.trim();
+                if (!email) {
+                    alert('Error: User email not found.');
+                    return;
+                }
+
+                const updateResponse = await fetch('http://localhost:5000/users/updatePassword', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        currentPassword: currentPassword,
+                        newPassword: newPassword
+                    })
+                });
+
+                const updateData = await updateResponse.json();
+                if (!updateResponse.ok) {
+                    throw new Error(updateData.error || 'Error updating password.');
+                }
+
+                alert('Password updated successfully!');
+                document.getElementById('passwordForm').style.display = 'none'; // Hide the form
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Function to handle form submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const passwordFeedback = document.getElementById('passwordFeedback').textContent;
+            const strengthFeedback = document.getElementById('strengthFeedback').textContent;
+
+            if (passwordFeedback !== 'Match' || !strengthFeedback.includes('Strong Password')) {
+                alert('Password must be strong and match the confirmation password.');
+                return;
+            }
+
+            updatePassword(); // Proceed with password update
+        }
+
+        // Function to check password strength
+        function checkPasswordStrength() {
+            const password = document.getElementById('newPassword').value;
+            const feedback = document.getElementById('strengthFeedback');
+
+            fetch('http://localhost:5000/users/checkPasswordStrength', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.isStrong) {
+                    feedback.textContent = 'Strong Password';
+                } else {
+                    let errorMessage = 'Weak Password: ';
+                    if (!data.hasCapital) errorMessage += 'Needs a capital letter. ';
+                    if (!data.hasNum) errorMessage += 'Needs a number. ';
+                    if (!data.isLongEnough) errorMessage += 'Needs to be at least 8 characters long.';
+                    feedback.textContent = errorMessage;
+                }
+            })
+            .catch(() => {
+                feedback.textContent = 'Error checking password strength';
+            });
+        }
+
+        // Function to check if passwords match
+        function checkPasswordMatch() {
+            const password = document.getElementById("newPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            const feedback = document.getElementById('passwordFeedback');
+
+            fetch('http://localhost:5000/users/checkPassword', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ password, confirmPassword })
+            })
+            .then(response => response.json())
+            .then(data => {
+                feedback.textContent = data.match ? 'Match' : 'No Match';
+            })
+            .catch(() => {
+                feedback.textContent = 'Error checking password';
+            });
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const passwordInput = document.getElementById('newPassword');
+            passwordInput.addEventListener('input', checkPasswordStrength);
+
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+        });
+
+
+
+
+
+
+
+        
+        async function checkEmailExists(email) {
+    try {
+        const response = await fetch('http://localhost:5000/users/checkEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email })
+        });
+
+        const data = await response.json();
+        return data.exists;
     } catch (error) {
-        alert(error.message);
+        console.error('Error checking email:', error);
+        return false; // Assume the email does not exist if there's an error
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadProfile);
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('http://localhost:5000/users/profile', {
+                    method: 'GET',
+                });
+
+    
+                const userData = await response.json();
+                document.getElementById('firstName').textContent = userData.firstName;
+                document.getElementById('lastName').textContent = userData.lastName;
+                document.getElementById('email').textContent = userData.email;
+                document.getElementById('createdEvents').textContent = userData.createdEvents.join(', ');
+                document.getElementById('joinedEvents').textContent = userData.joinedEvents.join(', ');
+    
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        });
+    
+        async function showUpdateForm() {
+    try {
+        const password = prompt('Please enter your password to update information:');
+        if (!password) return;
+
+        const email = document.getElementById('email').textContent.trim();
+        if (!email) {
+            alert('Error: User email not found.');
+            return;
+        }
+
+        const verifyResponse = await fetch('http://localhost:5000/users/verifyPassword', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const verifyData = await verifyResponse.json();
+        if (!verifyData.isMatch) {
+            alert('Password does not match.');
+            return;
+        }
+
+        const newFirstName = prompt('Enter new first name or enter the same to keep:') || document.getElementById('firstName').textContent.trim();
+    const newLastName = prompt('Enter new last name or enter the same to keep:') || document.getElementById('lastName').textContent.trim();
+    const newEmail = prompt('Enter new email or enter the same to keep:') || document.getElementById('email').textContent.trim();
+
+    // Check if any changes were made
+    if (newFirstName === document.getElementById('firstName').textContent.trim() &&
+        newLastName === document.getElementById('lastName').textContent.trim() &&
+        newEmail === document.getElementById('email').textContent.trim()) {
+        alert('No changes were made.');
+        return;
+    }
+
+    // Check if the new email is already in use
+    if (newEmail !== document.getElementById('email').textContent.trim()) {
+        const emailExists = await checkEmailExists(newEmail);
+        if (emailExists) {
+            alert('The email is already used. Please use a different email.');
+            return;
+        }
+    }
+        const updateResponse = await fetch('http://localhost:5000/users/update', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email, // Keep current email for identification
+                currentPassword: password,
+                newFirstName,
+                newLastName,
+                newEmail
+            })
+        });
+
+        const updateData = await updateResponse.json();
+        if (!updateResponse.ok) {
+            throw new Error(updateData.error || 'Error updating profile.');
+        }
+
+        alert('Profile updated successfully!');
+        location.reload(); // to reloade the page
+
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+
+    
+        document.getElementById('logoutButton').addEventListener('click', async (event) => {
+            event.preventDefault();
+    
+            try {
+                // Fetch the user who is logged in
+                const response = await fetch('http://localhost:5000/users/getLoggedInUser', {
+                    method: 'GET',
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Unable to fetch user');
+                }
+    
+                const user = await response.json();
+    
+                if (!user || !user.email) {
+                    alert('No user is currently logged in');
+                    return;
+                }
+    
+                // Send logout request
+                const logoutResponse = await fetch('http://localhost:5000/users/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: user.email })
+                });
+    
+                if (!logoutResponse.ok) {
+                    const errorData = await logoutResponse.json();
+                    throw new Error(errorData.error || 'Logout failed');
+                }
+    
+                alert('Logout successful!');
+                window.location.href = 'SignIn.html'; // Redirect to sign-in page
+            } catch (error) {
+                alert('Error logging out: ' + error.message);
+            }
+        });
+
+
+
+
+
+
+
+
+
 
     </script>
+           
 </body>
 </html>

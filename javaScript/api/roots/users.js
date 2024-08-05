@@ -133,4 +133,180 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-module.exports = router;
+
+// GET route to fetch the currently logged-in user
+router.get('/getLoggedInUser', async (req, res) => {
+    try {
+        const user = await User.findOne({ isSignedIn: true });
+        
+        if (!user) {
+            return res.status(404).json({ error: 'No user currently logged in' });
+        }
+
+        res.status(200).json({ email: user.email });
+    } catch (error) {
+        console.error('Error fetching logged-in user:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// POST route for user logout
+router.post('/logout', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(401).json({ error: 'User not found' });
+        }
+
+        // Set isSignedIn to false
+        user.isSignedIn = false;
+        await user.save();
+
+        res.status(200).json({ message: 'Logout successful' });
+    } catch (error) {
+        console.error('Error during logout:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+
+
+
+// GET route to fetch the currently signed-in user's information
+router.get('/profile', async (req, res) => {
+    try {
+        // Find the user who is signed in
+        const user = await User.findOne({ isSignedIn: true });
+
+        if (!user) {
+            return res.status(404).json({ error: 'No user is currently signed in' });
+        }
+
+        // Send user data
+        res.json({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            createdEvents: user.createdEvents,
+            joinedEvents: user.joinedEvents,
+            isSignedIn: user.isSignedIn
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+// PATCH route for updating user profile
+router.patch('/update', async (req, res) => {
+    const { email, currentPassword, newFirstName, newLastName, newEmail } = req.body;
+
+    // Fetch the user
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Verify current password
+    const decryptedPassword = decrypt(user.password);
+    if (currentPassword !== decryptedPassword) {
+        return res.status(400).json({ error: 'Current password is incorrect' });
+    }
+
+    // Update user information
+    if (newFirstName) user.firstName = newFirstName;
+    if (newLastName) user.lastName = newLastName;
+    if (newEmail) user.email = newEmail;
+
+    await user.save();
+    res.status(200).json({ message: 'Profile updated successfully' });
+});
+
+
+
+
+// POST route to verify user's password
+router.post('/verifyPassword', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        // Fetch user by email
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Decrypt stored password
+        const decryptedPassword = decrypt(user.password);
+
+        // Check if passwords match
+        const isMatch = password === decryptedPassword;
+        res.json({ isMatch:isMatch });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
+
+
+
+
+
+
+module.exports = router; 
+
+router.patch('/updatePassword', async (req, res) => {
+    const { email, currentPassword, newPassword } = req.body;
+
+    // Check for missing fields
+    if (!email || !currentPassword || !newPassword) {
+        return res.status(400).json({ error: 'Missing required fields.' });
+    }
+
+    try {
+        // Find the user by email
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        // Decrypt the stored password
+        const decryptedPassword = decrypt(user.password);
+        if (currentPassword !== decryptedPassword) {
+            return res.status(400).json({ error: 'Current password is incorrect.' });
+        }
+
+        // Encrypt the new password
+        const encryptedNewPassword = encrypt(newPassword);
+
+        // Update the user's password
+        user.password = encryptedNewPassword;
+        await user.save();
+
+        res.status(200).json({ message: 'Password updated successfully!' });
+    } catch (error) {
+        console.error('Error updating password:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+router.post('/checkEmail', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const user = await User.findOne({ email: email });
+        if (user) {
+            return res.status(200).json({ exists: true });
+        } else {
+            return res.status(200).json({ exists: false });
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});

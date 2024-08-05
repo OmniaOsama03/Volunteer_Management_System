@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Developers</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('../images/BackgroundAboutDev.png');
+            color: #fff;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header a {
+            color: white; /* Updated to match the header text color */
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 20px;
+            transition: color 0.3s;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        header {
+            color: #fff;
+            padding: 60px 20px 20px;
+            text-align: center;
+            width: 100%;
+            top: 60px; /* Adjust for header height */
+            position: relative;
+        }
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 160px; /* Adjust for header and content */
+            margin-bottom: 80px; /* Adjust for footer */
+            margin-left: 350px;
+        }
+        .info-box {
+            background: rgba(194, 242, 197, 0.5);
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 10px 20px 20px; /* Increased top padding for image space */
+            width: 45%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            position: relative;
+            margin-top: -70px;
+        }
+        .info-box:hover {
+            transform: scale(1.05);
+        }
+        .info-box img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px; /* Position from the top */
+            left: 37%;
+        }
+        .info-box h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #333;
+            margin-top: 180px; /* Adjust for image space */
+        }
+        .info-box p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #3d6144;
+            margin: 10px 0;
+        }
+        .info-box .role {
+            font-weight: bold;
+            color: #234623;
+        }
+        .footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="HomePage.html">Home</a>
+        <a href="CreateEvents.html">Create Events</a>
+        <a href="EventListing.html">View Events</a>
+        <a href="AboutDevelopers.html">About Us</a>
+        <a href="Profile.html">Profile</a>
+    </div>
+
+    <header>
+        <h1>About Developers</h1>
+        <h3>Meet the team behind the project!</h3>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <img src="../images/Sara.jpg" alt="Sara Hamdan">
+            <h2>Sara Hamdan</h2>
+            <p class="role">Senior Software Engineering Student</p>
+            <p>Major: Software Engineering</p>
+            <p>Hobbies: Photography, Reading, Cooking</p>
+            <p>Bio: Sara is a dedicated senior student with a passion for software development and innovative technologies. She enjoys exploring and capturing beautiful moments through photography as well as cooking new recipes.</p>
+        </div>
+        <div class="info-box">
+            <img src="../images/Omnia.jpg" alt="Omnia Osama">
+            <h2>Omnia Osama</h2>
+            <p class="role">Senior Software Engineering Student</p>
+            <p>Major: Software Engineering</p>
+            <p>Hobbies: Cooking, Traveling, Yoga</p>
+            <p>Bio: Omnia is a senior student with a keen interest in software engineering and user experience design. She loves experimenting with new recipes, exploring different cultures through travel, and maintaining balance with yoga.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 EventLink. All rights reserved.
+    </div>
+</body>
+</html>

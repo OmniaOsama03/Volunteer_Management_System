@@ -26,7 +26,6 @@ header {
     transform-style: inherit;
     width: 100vw;
     text-align: center;
-    text-transform: uppercase;
     background: url("../images/Back1.png") center/cover no-repeat;
     transform: translateZ(-.7px) scale(1.7);
     z-index: -1; /* Ensure header background is behind other content */
@@ -106,3 +105,21 @@ header h3 {
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+.logout-button {
+    float: right;
+    padding: 10px 20px;
+    margin-top: 5px;
+    margin-right: 10px;
+    background-color: #6aa076;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
+}
+

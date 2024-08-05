@@ -13,8 +13,12 @@ app.use(express.static('public'));
 const eventsRoute = require('./api/roots/events');
 const usersRoute = require('./api/roots/users');
 
-app.use(cors());
-app.use(morgan('dev'));
+const corsOptions = {
+    origin: 'http://127.0.0.1:5500', // Replace with your frontend URL
+    credentials: true, // Allow cookies to be sent
+};
+
+app.use(cors(corsOptions));app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

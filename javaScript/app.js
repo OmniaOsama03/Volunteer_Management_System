@@ -18,7 +18,8 @@ const corsOptions = {
     credentials: true, // Allow cookies to be sent
 };
 
-app.use(cors(corsOptions));app.use(morgan('dev'));
+app.use(cors(corsOptions));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

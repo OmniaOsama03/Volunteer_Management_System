@@ -1,0 +1,300 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('../images/BackgroundAboutDev.png') no-repeat  ; /* Background image */
+    background-size: cover; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden; 
+}
+
+ footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+#profileContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.profileBox {
+    background: rgba(255, 255, 255, 0.9); /* White transparent background */
+    border-radius: 8px;
+    padding: 90px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-align: center;
+    margin-top: 60px; /* Space for Profile label */
+}
+
+.profileBox::before {
+    content: "Profile";
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    font-size: 24px;
+}
+
+p {
+    margin: 15px 0;
+    font-size: 30px;
+}
+
+.update-button, .update-password-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.update-button:hover, .update-password-button:hover {
+    background-color: #45a049;
+}
+
+.header {
+    position: absolute;
+    top: 20px; /* Adjust this value to move the header down */
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 20px; /* Increased font size */
+    color: white;
+    z-index: 10; /* Ensure header is above other content */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(0, 0, 0, 0.3); 
+}
+
+.header a {
+    color: white; /* Updated to match the header text color */
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 10px 20px;
+    transition: color 0.3s;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.header a:hover {
+    color: #d0f0c0; /* Light green hover effect */
+}
+
+.footer {
+    position: absolute;
+    bottom: -1320px;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.logout-button {
+    float: right;
+    padding: 10px 20px;
+    margin-top: 5px;
+    margin-right: 10px;
+    background-color: #6aa076;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
+}
+
+#passwordForm {
+    display: none; /* Initially hidden */
+    margin-top: 20px;
+    text-align: left;
+}
+
+#passwordForm input {
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+#passwordForm button {
+    margin-top: 10px;
+    background-color: #f44336; /* Red */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#passwordForm button:hover {
+    background-color: #c62828;
+}
+
+.feedback {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+#passwordForm, #updateInfoForm {
+    display: none; /* Initially hidden */
+    margin-top: 20px;
+    text-align: left;
+}
+
+#passwordForm input, #updateInfoForm input {
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+#passwordForm button, #updateInfoForm button {
+    margin-top: 10px;
+    background-color: #f44336; /* Red */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#passwordForm button:hover, #updateInfoForm button:hover {
+    background-color: #c62828;
+}
+
+.feedback {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+#passwordForm, #updateInfoForm {
+    display: none; /* Initially hidden */
+    margin-top: 20px;
+    text-align: left;
+}
+
+#passwordForm input, #updateInfoForm input {
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+#passwordForm button, #updateInfoForm button {
+    margin-top: 10px;
+    background-color: #f44336; /* Red */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#passwordForm button:hover, #updateInfoForm button:hover {
+    background-color: #c62828;
+}
+
+.feedback {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000; /* On top of other content */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dim background */
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #b1b8b1;
+    padding: 90px 80px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #333;
+}
+
+.popup-content p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.popup-content a {
+    color: #333;
+}
+
+.popup-content a:hover {
+    color: white;
+}
+
+.close {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: white;
+}

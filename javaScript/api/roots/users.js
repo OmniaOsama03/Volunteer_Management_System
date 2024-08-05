@@ -156,7 +156,6 @@ router.post('/logout', async (req, res) => {
 
     try {
         const user = await User.findOne({ email });
-
         if (!user) {
             return res.status(401).json({ error: 'User not found' });
         }
@@ -187,8 +186,6 @@ router.get('/profile', async (req, res) => {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            createdEvents: user.createdEvents,
-            joinedEvents: user.joinedEvents,
             isSignedIn: user.isSignedIn
         });
     } catch (error) {
@@ -258,6 +255,7 @@ router.patch('/updatePassword', async (req, res) => {
 
     // Check for missing fields
     if (!email || !currentPassword || !newPassword) {
+        console.log('Error: Missing required fields.', req.body);
         return res.status(400).json({ error: 'Missing required fields.' });
     }
 
@@ -265,12 +263,14 @@ router.patch('/updatePassword', async (req, res) => {
         // Find the user by email
         const user = await User.findOne({ email });
         if (!user) {
+            console.log('Error: User not found.');
             return res.status(404).json({ error: 'User not found.' });
         }
 
         // Decrypt the stored password
         const decryptedPassword = decrypt(user.password);
         if (currentPassword !== decryptedPassword) {
+            console.log('Error: Current password is incorrect.');
             return res.status(400).json({ error: 'Current password is incorrect.' });
         }
 
@@ -287,6 +287,7 @@ router.patch('/updatePassword', async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
+
 
 
 router.post('/checkEmail', async (req, res) => {

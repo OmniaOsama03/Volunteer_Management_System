@@ -41,7 +41,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             position: relative;
             text-align: center;
-            margin-top: 60px; /* Space for Profile label */
+            margin-top: -50px; /* Space for Profile label */
         }
 
         .profileBox::before {
@@ -254,7 +254,8 @@
             display: block;
         }
 
-        .popup {
+        .popup 
+{
     display: none; /* Hidden by default */
     position: fixed;
     z-index: 1000; /* On top of other content */
@@ -265,12 +266,13 @@
     background-color: rgba(0, 0, 0, 0.5); /* Dim background */
 }
 
-.popup-content {
+.popup-content 
+{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #b1b8b1;
+    background-color:  #b1b8b1;;
     padding: 90px 80px;
     border-radius: 8px;
     width: 300px;
@@ -279,33 +281,77 @@
     color: #333;
 }
 
-.popup-content p {
+.popup-content p 
+{
     margin: 0;
     font-size: 18px;
     font-weight: bold;
 }
 
-.popup-content a {
-    color: #333;
+.popup-content a
+{
+    color: #333;;
 }
 
-.popup-content a:hover {
+.popup-content a:hover
+{
     color: white;
 }
 
-.close {
-    position: absolute;
-    top: 4px;
-    right: 10px;
-    font-size: 40px;
-    cursor: pointer;
+
+
+
+#uploadForm {
+    text-align: center; /* Center the form contents */
+    margin-top: 20px; /* Adjust spacing from the image */
 }
 
-.close:hover {
-    color: white;
+/* Style the file input and button as before */
+#uploadForm label {
+    display: inline-block;
+    background-color: #3c784a;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor:grab;    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
 }
 
-    </style>
+#uploadForm label:hover {
+    background-color: #0056b3;
+}
+
+#uploadForm button {
+    background-color: #28a745; /* Green color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor:grab;
+    transition: background-color 0.3s ease;
+}
+
+#uploadForm button:hover {
+    background-color: #218838; /* Darker green */
+}
+#profilePicture {
+    display: block;
+    margin-top: 90px;
+    margin-left: 890px;
+    width: 150px; /* Set a fixed width for the circle */
+    height: 150px; /* Set a fixed height to maintain the circle shape */
+    border-radius: 50%; /* Make the image circular */
+    border: 2px solid #007bff; /* Optional: Border color */
+}
+.custom-file-upload {
+    display: none;
+
+}
+
+
+
     </style>
 </head>
 <body>
@@ -318,6 +364,19 @@
         <a href="Profile.html">Profile</a>
         <button id="logoutButton" class="logout-button">Logout</button>
     </div>
+
+
+    <img id="profilePicture" />
+
+    <form id="uploadForm">
+        <label for="profilePictureInput">Choose Picture</label>
+        <input type="file" id="profilePictureInput" class="custom-file-upload" accept="image/*" />
+        <button type="submit">Upload</button>
+    </form>
+    
+
+
+
     <div id="profileContainer">
         <div class="profileBox">
             <p><strong>First Name:</strong> <span id="firstName"></span></p>
@@ -344,10 +403,79 @@
         </div>
     </div>
 
+
+
+    <body onload="checkUserSignInStatus()">
+
+        <!-- Popup HTML -->
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <div id="popupMessage">Please log in to see your profile.</div>
+            </div>
+        </div>
     <footer class="footer">
         &copy; 2024 EventLink. All rights reserved.
     </footer>
 <script>
+
+document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the default form submission
+
+    const fileInput = document.getElementById('profilePictureInput');
+    const file = fileInput.files[0];  // Get the first selected file
+    if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        
+        document.getElementById('profilePicture').src = imageUrl;
+
+    }
+});
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    checkUserSignInStatus();
+});
+
+function checkUserSignInStatus() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:5000/users/findUser', true);
+
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            // Parse the JSON response from /findUser
+            const user = JSON.parse(xhr.responseText);
+
+            if (!user || user.isSignedIn === false) {
+                showPopup('<p><a href="/html/SignIn.html">Sign In</a> to join our volunteering events!</p><p><a href="/html/HomePage.html"> Go back</p>');
+            } 
+        } else {
+            console.error('Error fetching user status:', xhr.statusText);
+        }
+    };
+
+    xhr.onerror = function() {
+        console.error('Request failed');
+    };
+
+    xhr.send();
+}
+
+function showPopup(message) {
+    const popup = document.getElementById('popup');
+    document.getElementById('popupMessage').innerHTML = message;
+    popup.style.display = 'block';
+}
+
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+
+
+
+
     // Function to toggle the visibility of the password form
     function togglePasswordForm() {
     const passwordForm = document.getElementById('passwordForm');
@@ -674,32 +802,7 @@ async function checkEmailExists(email) {
 
 
 
-    document.addEventListener("DOMContentLoaded", function() {
-    checkSignInStatus();
-});
 
-function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-}
-
-function showPopup() {
-    document.getElementById('popup').style.display = 'block';
-}
-
-function checkSignInStatus() {
-    fetch('/findUser')
-        .then(response => response.json())
-        .then(user => {
-            if (!user) {
-                showPopup();
-            } else {
-                console.log("User is signed in.");
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching user:', error);
-        });
-}
     </script>
            
 </body>

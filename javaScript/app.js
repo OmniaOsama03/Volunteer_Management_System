@@ -14,7 +14,7 @@ const usersRoute = require('./api/roots/users');
 
 // Define a route for the homepage
 app.get('/', (req, res) => {
-  res.redirect('../html/HomePage.html');
+  res.redirect('../.../HomePage.html');
 });
 
 const corsOptions = {

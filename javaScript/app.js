@@ -12,9 +12,11 @@ const eventsRoute = require('./api/roots/events');
 const usersRoute = require('./api/roots/users');
 
 
+app.use(express.static(path.join(__dirname, 'html')));
+
 // Define a route for the homepage
 app.get('/', (req, res) => {
-  res.redirect('../.../HomePage.html');
+  res.sendFile(path.join(__dirname, 'html', 'HomePage.html'));
 });
 
 const corsOptions = {

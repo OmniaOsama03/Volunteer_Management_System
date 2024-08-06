@@ -1,3 +1,14 @@
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.getElementById('event-date');
+
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+});
+
+
 async function handleFormSubmit(event) {
     event.preventDefault();
 

@@ -596,5 +596,5 @@ function register(eventId)
     xhr.send();
 }
 
-modules.exports = displayAllEvents;
+module.exports = displayAllEvents;
 

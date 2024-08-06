@@ -90,7 +90,7 @@ function checkUserSignInStatus() {
             const user = JSON.parse(xhr.responseText);
 
             if (!user || user.isSignedIn === false) {
-                showPopup('<p><a href="/html/SignIn.html">Sign In</a> to create your events!</p><p><a href="/html/HomePage.html"> Go back</p>');
+                showPopupLoging('<p><a href="/html/SignIn.html">Sign In</a> to create your events!</p><p><a href="/html/HomePage.html"> Go back</p>');
             } 
         } else {
             console.error('Error fetching user status:', xhr.statusText);
@@ -108,5 +108,11 @@ function checkUserSignInStatus() {
 function showPopup(message) {
     const popup = document.getElementById('popup');
     document.getElementById('popupMessage').innerHTML = message;
+    popup.style.display = 'block';
+}
+
+function showPopupLoging(message) {
+    const popup = document.getElementById('popupl');
+    document.getElementById('popupMessageLoging').innerHTML = message;
     popup.style.display = 'block';
 }

@@ -103,7 +103,7 @@ async function logOut()
     }
 }
 
-
+//Redirecting the user to sign-in or sign-up
 function signIn() 
 {
     window.location.href = '../html/SignIn.html';
@@ -114,6 +114,8 @@ function signUp()
     window.location.href = '../html/SignUp.html';
 }
 
+
+//closing & showing the popup 
 function closePopup() 
 {
     document.getElementById('popup').style.display = 'none';
@@ -124,6 +126,7 @@ function showPopup(message)
     document.getElementById('popupMessage').innerHTML = message;
     document.getElementById('popup').style.display = 'block';
 }
+
 
 //displaying all events as the page loads
 async function displayAllEvents() 
@@ -144,6 +147,7 @@ async function displayAllEvents()
         console.error('Error fetching events:', error);
     }
 }
+
 
 //displaying events based on a given array of events
 function listEvent(userAction, arrayOfEvents) 
@@ -287,6 +291,7 @@ function searchEvent()
     xhr.send();
 }
 
+//Displaying all the events the user created and all the events the user joined
 function displayJoinedEvents() 
 {
     // Create a new XMLHttpRequest object to find the user
@@ -305,9 +310,10 @@ function displayJoinedEvents()
             return;
         }
 
+        //Retrieving the user id from the response
         const userId = user._id;
 
-        // Fetch all events
+        //Fetching all events
         const allEventsXhr = new XMLHttpRequest();
         allEventsXhr.open('GET', 'http://35.224.154.82/events/', true);
 
@@ -321,6 +327,7 @@ function displayJoinedEvents()
 
             joinedEventsXhr.onload = function() 
             {
+                //Fetching the ids of joined events
                 const joinedEventIds = JSON.parse(joinedEventsXhr.responseText);
 
                 if(joinedEventIds.length === 0)
@@ -329,10 +336,10 @@ function displayJoinedEvents()
                 }
                 else
                 {
-                    // Filter the events
+                    // Filter the events based on the joined ones
                     const joinedEvents = allEvents.filter(event => joinedEventIds.includes(event._id));
 
-                    // Display the events
+                    // Display the events and append them 
                     const joinedEventsDiv = document.getElementById('joined-events');
                     joinedEventsDiv.innerHTML = '';
 
@@ -359,7 +366,7 @@ function displayJoinedEvents()
                     });
                 }
 
-                // Now fetch created events for the user
+                // Now, fetch created events for the user
                 const createdEventsXhr = new XMLHttpRequest();
                 createdEventsXhr.open('GET', `http://35.224.154.82/users/getCreatedEvents/${userId}`, true);
 
@@ -490,15 +497,16 @@ function checkDeleteCreated(eventID, eventTitle, userId)
 }
 
 
+//Deleting a user's joined event
 function deleteJoinedEvent(eventId, userId)
 {
-    // Create a new XMLHttpRequest object
+    
     const xhr = new XMLHttpRequest();
     
-    // Define the request method and URL to the delete endpoint
+    // Request method and URL to the delete endpoint
     xhr.open('DELETE', `http://35.224.154.82/users/deleteJoinedEvent/${userId}/${eventId}`, true);
     
-    // Define the callback function for when the request completes
+    
     xhr.onload = function() 
     {
             //Get the response from the endpoint
@@ -535,32 +543,28 @@ function deleteCreatedEvent(eventId, userId)
             console.log(response.message);
 
             // Hide the popup
-            closePopup()
+            closePopup();
             
             // Refresh the list of joined events 
             displayJoinedEvents();
-
-            //Refresh list of all events
-            displayAllEvents();
     };
 
-    // Send the request
+    
     xhr.send();
 }
 
+//Adding an event to list of joined events during registration
 function register(eventId) 
 {
     // Create a new XMLHttpRequest object
     const xhr = new XMLHttpRequest();
     
-    // Define the request method and URL to find the user
+    // Find the user that's currently logged in
     xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
     
-    // Define the callback function for when the request completes
+    
     xhr.onload = function() 
     {
-            
-            // Parse the JSON response from /findUser
             const user = JSON.parse(xhr.responseText);
             
             if (!user || user.isSignedIn === false) 
@@ -581,8 +585,8 @@ function register(eventId)
                 {
                     const response = JSON.parse(registerXhr.responseText);
  
+                    //Display error/success message
                     showPopup("<p>" + response.message + "</p>")
-
                 };
 
                 // Send the registration request

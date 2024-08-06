@@ -19,8 +19,10 @@ const eventSchema = new mongoose.Schema(
 const Event = mongoose.model('Event', eventSchema);
  
 // POST route to create an event
-router.post('/', async (req, res, next) => {
-    try {
+router.post('/', async (req, res, next) => 
+{
+    try 
+    {
         const newEvent = new Event(req.body);
         await newEvent.save();
         res.status(201).json(newEvent);
@@ -29,11 +31,12 @@ router.post('/', async (req, res, next) => {
     }
 });
  
+
 // GET route to fetch all events
 router.get('/',  (req, res, next) => 
 {
-    Event.find()
-        .then(events => {
+        Event.find().then(events => 
+        {
             res.status(200).json(events);
         })
         .catch(err => {
@@ -132,21 +135,4 @@ router.get('/findEventId/:title', (req, res) =>
         });
 });
 
-router.delete('/deleteEvent/:eventId', async (req, res) => 
-    {
-    const { eventId } = req.params;
-  
-    try {
-      // Find and delete the event by ID
-      const result = await Event.findByIdAndDelete(eventId);
-
-      // Print a success response
-      console.log({ message: 'Event deleted successfully' });
-
-    } catch (error) {
-      // Handle any errors that occur
-      console.error(error);
-    }
-  });
-  
 module.exports = router;

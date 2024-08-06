@@ -4,7 +4,7 @@ function isSignedIn()
     const xhr = new XMLHttpRequest();
     
     // Define the request method and URL to check if the user is signed in
-    xhr.open('GET', 'http://localhost:5000/users/findUser', true);
+    xhr.open('GET', 'https://eventlink-431700.df.r.appspot.com/users/findUser', true);
 
     // Define the callback function for when the request completes
     xhr.onload = function() 
@@ -55,7 +55,7 @@ async function logOut()
     // Handle log out logic
     try {
         // Fetch the user who is logged in
-        const response = await fetch('http://localhost:5000/users/getLoggedInUser', {
+        const response = await fetch('https://eventlink-431700.df.r.appspot.com/users/getLoggedInUser', {
             method: 'GET',
             credentials: 'include' // Assuming cookies or similar are used
         });
@@ -72,7 +72,7 @@ async function logOut()
         }
 
         // Send logout request
-        const logoutResponse = await fetch('http://localhost:5000/users/logout', {
+        const logoutResponse = await fetch('https://eventlink-431700.df.r.appspot.com/users/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

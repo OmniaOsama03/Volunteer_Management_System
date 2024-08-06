@@ -14,8 +14,7 @@ const eventsRoute = require('./api/roots/events');
 const usersRoute = require('./api/roots/users');
 
 const corsOptions = {
-    origin: 'http://127.0.0.1:5500', // Replace with your frontend URL
-    credentials: true, // Allow cookies to be sent
+    origin: 'https://eventlink-431700.df.r.appspot.com' 
 };
 
 app.use(cors(corsOptions));
@@ -27,7 +26,7 @@ app.use('/events', eventsRoute);
 app.use('/users', usersRoute);
 
 //connect through connection string + specify desired db
-mongoose.connect('mongodb://localhost:27017/Events')
+mongoose.connect('mongodb+srv://omniaosama432:kWQH4LbykAj2ZBz3@cluster0.mdkkgqx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/Events')
 
 
 

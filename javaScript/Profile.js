@@ -40,7 +40,7 @@
                     return;
                 }
 
-                const updateResponse = await fetch('http://localhost:5000/users/updatePassword', {
+                const updateResponse = await fetch('https://eventlink-431700.df.r.appspot.com/users/updatePassword', {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
@@ -85,7 +85,7 @@
             const password = document.getElementById('newPassword').value;
             const feedback = document.getElementById('strengthFeedback');
 
-            fetch('http://localhost:5000/users/checkPasswordStrength', {
+            fetch('https://eventlink-431700.df.r.appspot.com/users/checkPasswordStrength', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -115,7 +115,7 @@
             const confirmPassword = document.getElementById("confirmPassword").value;
             const feedback = document.getElementById('passwordFeedback');
 
-            fetch('http://localhost:5000/users/checkPassword', {
+            fetch('https://eventlink-431700.df.r.appspot.com/users/checkPassword', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -150,7 +150,7 @@
         
         async function checkEmailExists(email) {
     try {
-        const response = await fetch('http://localhost:5000/users/checkEmail', {
+        const response = await fetch('https://eventlink-431700.df.r.appspot.com/users/checkEmail', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -173,7 +173,7 @@
 
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                const response = await fetch('http://localhost:5000/users/profile', {
+                const response = await fetch('https://eventlink-431700.df.r.appspot.com/users/profile', {
                     method: 'GET',
                 });
 
@@ -230,7 +230,7 @@
                 }
             }
 
-            const updateResponse = await fetch('http://localhost:5000/users/update', {
+            const updateResponse = await fetch('https://eventlink-431700.df.r.appspot.com/users/update', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -277,7 +277,7 @@
     
             try {
                 // Fetch the user who is logged in
-                const response = await fetch('http://localhost:5000/users/logoutButton', {
+                const response = await fetch('https://eventlink-431700.df.r.appspot.com/users/logoutButton', {
                     method: 'GET',
                 });
     
@@ -293,7 +293,7 @@
                 }
     
                 // Send logout request
-                const logoutResponse = await fetch('http://localhost:5000/users/logout', {
+                const logoutResponse = await fetch('https://eventlink-431700.df.r.appspot.com/users/logout', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -312,16 +312,6 @@
                 alert('Error logging out: ' + error.message);
             }
         });
-
-
-
-
-
-
-
-
-
-
 
         document.addEventListener("DOMContentLoaded", function() {
             checkSignInStatus();

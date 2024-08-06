@@ -56,7 +56,7 @@ async function handleFormSubmit(event) {
         const userId = userData._id;
 
         // Add the event to the user's created events
-        const createEventResponse = await fetch(`http://35.224.154.82/users/createEvents/${eventId}/${userId}`, 
+        const createEventResponse = await fetch(`http://35.224.154.82/users/createEvent/${eventId}/${userId}`, 
         {
             method: 'POST',
             headers: 

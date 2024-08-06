@@ -6,12 +6,18 @@ const cors = require('cors');
 
 const app = express();
 
-
-
 app.use(express.static('public'));
 
 const eventsRoute = require('./api/roots/events');
 const usersRoute = require('./api/roots/users');
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Define a route for the homepage
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', '../html/HomePage.html'));
+});
 
 const corsOptions = {
     origin: 'https://eventlink-431700.df.r.appspot.com' 

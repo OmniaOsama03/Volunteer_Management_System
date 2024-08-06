@@ -1,4 +1,3 @@
-const listEvents = require('./EventListing');
 
 document.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('event-date');
@@ -72,9 +71,6 @@ async function handleFormSubmit(event)
             }
         });
 
-        deleteEvent(eventId);
-        listEvents.displayAllEvents(); 
-
         //Display popup with message saying that it was created successfully
         const popupDiv = document.getElementById('popupMessage');
 
@@ -89,16 +85,6 @@ async function handleFormSubmit(event)
     }
 }
 
-async function deleteEvent(eventId) 
-{
-    
-      const response = await fetch(`http://35.224.154.82/events/deleteEvent/${eventId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-}
 
 function closePopup() {
         document.getElementById('popup').style.display = 'none';

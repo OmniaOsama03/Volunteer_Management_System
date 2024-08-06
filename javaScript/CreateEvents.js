@@ -70,14 +70,14 @@ async function handleFormSubmit(event)
             }
         });
 
-        const deleteEvent = await fetch(`http://35.224.154.82/events/deleteEvent/${eventId}`, 
+        /*const deleteEvent = await fetch(`http://35.224.154.82/events/deleteEvent/${eventId}`, 
             {
                 method: 'DELETE',
                 headers: 
                 {
                     'Content-Type': 'application/json'
                 }
-            });
+            });*/
 
         //Display popup with message saying that it was created successfully
         const popupDiv = document.getElementById('popupMessage');

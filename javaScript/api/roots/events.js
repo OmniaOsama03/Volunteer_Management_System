@@ -140,7 +140,7 @@ router.delete('/deleteEvent/:eventId', async (req, res) =>
       // Find and delete the event by ID
       const result = await Event.findByIdAndDelete(eventId);
 
-      // Return a success response
+      // Print a success response
       console.log({ message: 'Event deleted successfully' });
 
     } catch (error) {

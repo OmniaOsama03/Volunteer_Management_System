@@ -13,11 +13,12 @@ const usersRoute = require('./api/roots/users');
 
 const path = require('path');
 
-app.use(express.static(path.join(__dirname, 'html')));
+// Serve static files from the root of your project
+app.use(express.static(path.join(__dirname, '..')));
 
 // Define a route for the homepage
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'html', 'HomePage.html'));
+  res.sendFile(path.join(__dirname, '..', 'html', 'HomePage.html'));
 });
 
 const corsOptions = {

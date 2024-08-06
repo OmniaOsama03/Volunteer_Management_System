@@ -11,6 +11,7 @@ app.use(express.static('public'));
 const eventsRoute = require('./api/roots/events');
 const usersRoute = require('./api/roots/users');
 
+const path = require('path');
 
 app.use(express.static(path.join(__dirname, 'html')));
 

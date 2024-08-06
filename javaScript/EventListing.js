@@ -528,6 +528,9 @@ function deleteCreatedEvent(eventId, userId)
             
             // Refresh the list of joined events 
             displayJoinedEvents();
+
+            //Refresh list of all events
+            displayAllEvents();
     };
 
     // Send the request

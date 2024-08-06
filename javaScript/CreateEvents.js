@@ -3,8 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create a new date object for tomorrow
     const AllowedData = new Date();
+
     // Set tomorrow's date
     AllowedData.setDate(AllowedData.getDate() + 1);
+
     // Format the date to YYYY-MM-DD
     const AllowedDataFormatted = AllowedData.toISOString().split('T')[0];
 
@@ -13,13 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
 // Handles the form submission, sends data to the server, and updates user events
-async function handleFormSubmit(event) {
+async function handleFormSubmit(event) 
+{
     event.preventDefault();
 
     const form = event.target;
-    const data = {
+    const data = 
+    {
         name: form.elements['name'].value,
         title: form.elements['title'].value,
         description: form.elements['description'].value,
@@ -30,7 +33,8 @@ async function handleFormSubmit(event) {
         visibility: form.elements['visibility'].value
     };
 
-    try {
+    try 
+    {
         const response = await fetch('http://35.224.154.82/events', {
             method: 'POST',
             headers: {
@@ -66,11 +70,19 @@ async function handleFormSubmit(event) {
             }
         });
 
+        const deleteEvent = await fetch(`http://35.224.154.82/events/deleteEvent/${eventId}`, 
+            {
+                method: 'DELETE',
+                headers: 
+                {
+                    'Content-Type': 'application/json'
+                }
+            });
+
         //Display popup with message saying that it was created successfully
         const popupDiv = document.getElementById('popupMessage');
 
         document.getElementById('popup').style.display = 'block';
-
         popupDiv.innerHTML = '<p> The event has been successfully created! </p>';
 
         form.reset();

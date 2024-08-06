@@ -132,4 +132,21 @@ router.get('/findEventId/:title', (req, res) =>
         });
 });
 
+app.delete('/deleteEvent/:eventId', async (req, res) => 
+    {
+    const { eventId } = req.params;
+  
+    try {
+      // Find and delete the event by ID
+      const result =  Event.findByIdAndDelete(eventId);
+
+      // Return a success response
+      console.log({ message: 'Event deleted successfully' });
+
+    } catch (error) {
+      // Handle any errors that occur
+      console.error(error);
+    }
+  });
+  
 module.exports = router;

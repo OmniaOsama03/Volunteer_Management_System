@@ -14,7 +14,7 @@ async function handleFormSubmit(event) {
     };
 
     try {
-        const response = await fetch('https://eventlink-431700.df.r.appspot.com/events', {
+        const response = await fetch('http://35.224.154.82/events', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,20 +28,20 @@ async function handleFormSubmit(event) {
 
         
         // Find the event ID based on the title
-        const titleResponse = await fetch(`https://eventlink-431700.df.r.appspot.com/findEventId/${data.title}`);
+        const titleResponse = await fetch(`http://35.224.154.82/events/findEventId/${data.title}`);
 
         const titleData = await titleResponse.json(); //the event with the id
         console.log(titleData);
         const eventId = titleData._id;
 
         // Find the currently logged-in user
-        const userResponse = await fetch('https://eventlink-431700.df.r.appspot.com/users/findUser');
+        const userResponse = await fetch('http://35.224.154.82/users/findUser');
 
         const userData = await userResponse.json(); //the user currently logged in
         const userId = userData._id;
 
         // Add the event to the user's created events
-        const createEventResponse = await fetch(`https://eventlink-431700.df.r.appspot.com/${eventId}/${userId}`, 
+        const createEventResponse = await fetch(`http://35.224.154.82/users/createEvents/${eventId}/${userId}`, 
         {
             method: 'POST',
             headers: 
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function checkUserSignInStatus() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://eventlink-431700.df.r.appspot.com/users/findUser', true);
+    xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
 
     xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 300) {
@@ -133,7 +133,7 @@ function showPopupLoging(message) {
         const xhr = new XMLHttpRequest();
         
         // Define the request method and URL to check if the user is signed in
-        xhr.open('GET', 'https://eventlink-431700.df.r.appspot.com/users/findUser', true);
+        xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
 
         // Define the callback function for when the request completes
         xhr.onload = function() 
@@ -183,7 +183,7 @@ function showPopupLoging(message) {
                 // Handle log out logic
                 try {
                     // Fetch the user who is logged in
-                    const response = await fetch('https://eventlink-431700.df.r.appspot.com/getLoggedInUser', {
+                    const response = await fetch('http://35.224.154.82/users/getLoggedInUser', {
                         method: 'GET',
                         credentials: 'include' // Assuming cookies or similar are used
                     });
@@ -200,7 +200,7 @@ function showPopupLoging(message) {
                     }
 
                     // Send logout request
-                    const logoutResponse = await fetch('https://eventlink-431700.df.r.appspot.com/logout', {
+                    const logoutResponse = await fetch('http://35.224.154.82/users/logout', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

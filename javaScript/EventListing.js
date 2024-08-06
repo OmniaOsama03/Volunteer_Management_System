@@ -4,7 +4,7 @@ function isSignedIn()
     const xhr = new XMLHttpRequest();
     
     // Define the request method and URL to check if the user is signed in
-    xhr.open('GET', 'https://eventlink-431700.df.r.appspot.com/users/findUser', true);
+    xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
 
     // Define the callback function for when the request completes
     xhr.onload = function() 
@@ -55,7 +55,7 @@ async function logOut()
     // Handle log out logic
     try {
         // Fetch the user who is logged in
-        const response = await fetch('https://eventlink-431700.df.r.appspot.com/users/getLoggedInUser', {
+        const response = await fetch('http://35.224.154.82/users/getLoggedInUser', {
             method: 'GET',
             credentials: 'include' // Assuming cookies or similar are used
         });
@@ -72,7 +72,7 @@ async function logOut()
         }
 
         // Send logout request
-        const logoutResponse = await fetch('http://localhost:5000/users/logout', {
+        const logoutResponse = await fetch('http://35.224.154.82/users/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ async function displayAllEvents()
     try 
     {
         // Fetching all events from the server
-        const response = await fetch('https://eventlink-431700.df.r.appspot.com/events/');
+        const response = await fetch('http://35.224.154.82/events/');
 
         // Parse the JSON response
         const events = await response.json();
@@ -232,7 +232,7 @@ function filterEvents()
 
     // Perform AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `https://eventlink-431700.df.r.appspot.com/events/filter?${params.toString()}`, true);
+    xhr.open('GET', `http://35.224.154.82/events/filter?${params.toString()}`, true);
 
     xhr.onload = function ()
     {
@@ -262,7 +262,7 @@ function searchEvent()
 
     // Perform AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `https://eventlink-431700.df.r.appspot.com/events/search?${params.toString()}`, true);
+    xhr.open('GET', `http://35.224.154.82/events/search?${params.toString()}`, true);
 
     xhr.onload = function () 
     {    
@@ -280,7 +280,7 @@ function displayJoinedEvents()
 {
     // Create a new XMLHttpRequest object to find the user
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://eventlink-431700.df.r.appspot.com/users/findUser', true);
+    xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
 
     xhr.onload = function() 
     {
@@ -298,7 +298,7 @@ function displayJoinedEvents()
 
         // Fetch all events
         const allEventsXhr = new XMLHttpRequest();
-        allEventsXhr.open('GET', 'https://eventlink-431700.df.r.appspot.com/events/', true);
+        allEventsXhr.open('GET', 'http://35.224.154.82/events/', true);
 
         allEventsXhr.onload = function() 
         {
@@ -306,7 +306,7 @@ function displayJoinedEvents()
 
             // Fetch joined events for the user
             const joinedEventsXhr = new XMLHttpRequest();
-            joinedEventsXhr.open('GET', `https://eventlink-431700.df.r.appspot.com/users/getJoinedEvents/${userId}`, true);
+            joinedEventsXhr.open('GET', `http://35.224.154.82/users/getJoinedEvents/${userId}`, true);
 
             joinedEventsXhr.onload = function() 
             {
@@ -350,7 +350,7 @@ function displayJoinedEvents()
 
                 // Now fetch created events for the user
                 const createdEventsXhr = new XMLHttpRequest();
-                createdEventsXhr.open('GET', `https://eventlink-431700.df.r.appspot.com/users/getCreatedEvents/${userId}`, true);
+                createdEventsXhr.open('GET', `http://35.224.154.82/users/getCreatedEvents/${userId}`, true);
 
                 createdEventsXhr.onload = function() 
                 {
@@ -485,7 +485,7 @@ function deleteJoinedEvent(eventId, userId)
     const xhr = new XMLHttpRequest();
     
     // Define the request method and URL to the delete endpoint
-    xhr.open('DELETE', `https://eventlink-431700.df.r.appspot.com/users/deleteJoinedEvent/${userId}/${eventId}`, true);
+    xhr.open('DELETE', `http://35.224.154.82/users/deleteJoinedEvent/${userId}/${eventId}`, true);
     
     // Define the callback function for when the request completes
     xhr.onload = function() 
@@ -513,7 +513,7 @@ function deleteCreatedEvent(eventId, userId)
     const xhr = new XMLHttpRequest();
         
     // Define the request method and URL to the delete endpoint
-    xhr.open('DELETE', `https://eventlink-431700.df.r.appspot.com/users/deleteCreatedEvent/${userId}/${eventId}`, true);
+    xhr.open('DELETE', `http://35.224.154.82/users/deleteCreatedEvent/${userId}/${eventId}`, true);
 
     // Define the callback function for when the request completes
     xhr.onload = function() 
@@ -540,7 +540,7 @@ function register(eventId)
     const xhr = new XMLHttpRequest();
     
     // Define the request method and URL to find the user
-    xhr.open('GET', 'https://eventlink-431700.df.r.appspot.com/users/findUser', true);
+    xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
     
     // Define the callback function for when the request completes
     xhr.onload = function() 
@@ -560,7 +560,7 @@ function register(eventId)
                 
                 // Create another XMLHttpRequest to register the event
                 const registerXhr = new XMLHttpRequest();
-                registerXhr.open('POST', `https://eventlink-431700.df.r.appspot.com/users/register/${eventId}/${userId}`, true);
+                registerXhr.open('POST', `http://35.224.154.82/users/register/${eventId}/${userId}`, true);
 
                 // Define the callback function for when the registration request completes
                 registerXhr.onload = function() 

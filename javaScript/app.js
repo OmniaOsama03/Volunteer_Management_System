@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 const corsOptions = {
-    origin: 'https://eventlink-431700.df.r.appspot.com' 
+    origin: 'http://35.224.154.82/' 
 };
 
 app.use(cors(corsOptions));

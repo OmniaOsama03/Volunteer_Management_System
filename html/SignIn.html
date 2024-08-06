@@ -20,6 +20,8 @@
     </div>
 
     <script>
+
+        // Handles form submission asynchronously
         async function handleFormSubmit(event) {
             event.preventDefault();
 
@@ -30,6 +32,7 @@
             };
 
             try {
+                 // Sends a POST request to the server to log in the user
                 const response = await fetch('http://35.224.154.82/users/login', {
                     method: 'POST',
                     headers: {
@@ -50,7 +53,7 @@
                 alert(error.message);
             }
         }
-
+        // Adds an event listener to the sign-in form
             const form = document.getElementById('signin-form');
             form.addEventListener('submit', handleFormSubmit);
         

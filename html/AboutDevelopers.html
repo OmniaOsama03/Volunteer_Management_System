@@ -253,17 +253,20 @@
             <img src="../images/Sara.jpg" alt="Sara Hamdan">
             <h2>Sara Hamdan</h2>
             <p class="role">Senior Software Engineering Student</p>
-            <p>Major: Software Engineering</p>
-            <p>Hobbies: Photography, Reading, Cooking</p>
-            <p>Bio: Sara is a dedicated senior student with a passion for software development and innovative technologies. She enjoys exploring and capturing beautiful moments through photography as well as cooking new recipes.</p>
+            <p><strong>Programming Languages:</strong> JavaScript, Python, C, Java</p>
+            <p><strong>Bio:</strong> Sara is a dedicated senior student majoring in software engineering, with a passion for innovative technologies and software development.</p>
+            <p><strong>Project Experience:</strong> Sara has developed several full-stack applications, focusing on creating efficient and scalable solutions. She has worked on projects involving AI-driven systems for University systems.</p>
         </div>
         <div class="info-box">
             <img src="../images/Omnia.jpg" alt="Omnia Osama">
             <h2>Omnia Osama</h2>
             <p class="role">Senior Software Engineering Student</p>
-            <p>Major: Software Engineering</p>
-            <p>Hobbies: Cooking, Traveling, Yoga</p>
-            <p>Bio: Omnia is a senior student with a keen interest in software engineering and user experience design. She loves experimenting with new recipes, exploring different cultures through travel, and maintaining balance with yoga.</p>
+            <p><strong>Programming Languages:</strong> JavaScript, Python, Java, C++, Ruby</p>
+
+            <p><strong>Bio:</strong> Omnia is a driven final-year student specializing in Software Engineering, with a keen interest in emerging technologies and software solutions.</p>
+            
+            <p><strong>Project Experience:</strong> Omnia has worked on a range of full-stack projects, emphasizing the development of robust and scalable applications. Her projects include building AI-powered tools and systems for academic and research purposes.</p>
+                
         </div>
     </div>
 
@@ -288,7 +291,7 @@
     const xhr = new XMLHttpRequest();
     
     // Define the request method and URL to check if the user is signed in
-    xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
+    xhr.open('GET', 'http://localhost:5000/users/findUser', true);
 
     // Define the callback function for when the request completes
     xhr.onload = function() 
@@ -312,7 +315,7 @@
 
     // Send the request to check if the user is signed in
     xhr.send();
-    }
+}
         function hoverOnPfp() 
         {
             document.getElementById('dim-overlay').style.display = 'block';
@@ -338,7 +341,7 @@
             // Handle log out logic
             try {
                 // Fetch the user who is logged in
-                const response = await fetch('http://35.224.154.82/users/getLoggedInUser', {
+                const response = await fetch('http://localhost:5000/users/getLoggedInUser', {
                     method: 'GET',
                     credentials: 'include' // Assuming cookies or similar are used
                 });
@@ -355,7 +358,7 @@
                 }
 
                 // Send logout request
-                const logoutResponse = await fetch('http://35.224.154.82/users/logout', {
+                const logoutResponse = await fetch('http://localhost:5000/users/logout', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

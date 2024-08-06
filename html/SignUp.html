@@ -32,6 +32,7 @@
     </div>
 
     <script>
+        // A function to check if a the passwords match
         function checkPasswordMatch() {
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("confirmPassword").value;
@@ -53,6 +54,8 @@
             xhttp.send(JSON.stringify({ password, confirmPassword }));
         }
 
+
+        // A function to check the passwords Strength
         function checkPasswordStrength() {
             const password = document.getElementById('password').value;
 
@@ -82,10 +85,11 @@
             xhttp.send(JSON.stringify({ password }));
         }
     
+
+        // Handles form submission asynchronously
         async function handleFormSubmit(event) {
             event.preventDefault();
     
-            const form = event.target;
             const passwordFeedback = document.getElementById('passwordFeedback').textContent;
             const strengthFeedback = document.getElementById('strengthFeedback').textContent;
     
@@ -93,15 +97,16 @@
                 alert('Password must be strong and match the confirmation password.');
                 return;
             }
-    
-            const data = {
+
+            const form = event.target;
+            const data = { // Collects form data into an object
                 firstName: form.elements['firstName'].value,
                 lastName: form.elements['lastName'].value,
                 email: form.elements['email'].value,
                 password: form.elements['password'].value
             };
     
-            try {
+            try {  // Sends a POST request to the server to create a new user
                 const response = await fetch('http://35.224.154.82/users', {
                     method: 'POST',
                     headers: {
@@ -122,60 +127,18 @@
             }
         }
     
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('signup-form');
-            form.addEventListener('submit', handleFormSubmit);
-    
-            const passwordInput = document.getElementById('password');
-            passwordInput.addEventListener('input', checkPasswordStrength);
-    
-            const confirmPasswordInput = document.getElementById('confirmPassword');
-            confirmPasswordInput.addEventListener('input', checkPasswordMatch);
-        });
+    // Adds event listeners once the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('signup-form'); // Gets the signup form element
+        form.addEventListener('submit', handleFormSubmit); // Adds a submit event listener to the form
 
+        const passwordInput = document.getElementById('password'); // Gets the password input element
+        passwordInput.addEventListener('input', checkPasswordStrength); // Adds an input event listener to check password strength
 
-                //or
-       /* function handleFormSubmit(event) {
-            event.preventDefault();
-    
-            var form = event.target;
-            var formData = new FormData(form);
-    
-            var data = {
-                firstName: formData.get('firstName'),
-                lastName: formData.get('lastName'),
-                email: formData.get('email'),
-                password: formData.get('password')
-            };
-    
-            if (data.password !== formData.get('confirmPassword')) {
-                alert('Passwords do not match.');
-                return;
-            }
-    
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "http://localhost:5000/users", true);
-            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    
-            xhttp.onload = function () {
-                if (xhttp.status >= 200 && xhttp.status < 300) {
-                    alert('Account created successfully!');
-                    form.reset();
-                } else {
-                    alert('Error creating account: ' + xhttp.statusText);
-                }
-            };
-    
-            xhttp.send(JSON.stringify(data));
-        }
-    
-        document.addEventListener('DOMContentLoaded', () => {
-            var form = document.getElementById('signup-form');
-            form.addEventListener('submit', handleFormSubmit);
-    
-            var confirmPasswordInput = document.getElementById('confirmPassword');
-            confirmPasswordInput.addEventListener('input', checkPasswordMatch);
-        });*/
+        const confirmPasswordInput = document.getElementById('confirmPassword'); // Gets the confirm password input element
+        confirmPasswordInput.addEventListener('input', checkPasswordMatch); // Adds an input event listener to check password match
+    });
+
     </script>
 </body>
 </html>

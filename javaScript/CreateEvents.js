@@ -1,3 +1,18 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.getElementById('event-date');
+
+
+    // Create a new date object for tomorrow
+    const AllowedData = new Date();
+    // Set tomorrow's date
+    AllowedData.setDate(AllowedData.getDate() + 1);
+    // Format the date to YYYY-MM-DD
+    const AllowedDataFormatted = AllowedData.toISOString().split('T')[0];
+
+    // Set the minimum date attribute to tomorrow's date
+    dateInput.setAttribute('min', AllowedDataFormatted);
+});
+
 async function handleFormSubmit(event) {
     event.preventDefault();
 

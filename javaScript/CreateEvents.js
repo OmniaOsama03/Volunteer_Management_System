@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('event-date');
 
-
     // Create a new date object for tomorrow
     const AllowedData = new Date();
     // Set tomorrow's date
@@ -13,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     dateInput.setAttribute('min', AllowedDataFormatted);
 });
 
+
+
+// Handles the form submission, sends data to the server, and updates user events
 async function handleFormSubmit(event) {
     event.preventDefault();
 
@@ -41,7 +43,6 @@ async function handleFormSubmit(event) {
             throw new Error('Network response was not ok');
         }
 
-        
         // Find the event ID based on the title
         const titleResponse = await fetch(`http://35.224.154.82/events/findEventId/${data.title}`);
 
@@ -65,10 +66,11 @@ async function handleFormSubmit(event) {
             }
         });
 
-        //Display popup with message
+        //Display popup with message saying that it was created successfully
         const popupDiv = document.getElementById('popupMessage');
 
         document.getElementById('popup').style.display = 'block';
+
         popupDiv.innerHTML = '<p> The event has been successfully created! </p>';
 
         form.reset();
@@ -79,45 +81,45 @@ async function handleFormSubmit(event) {
     }
 }
 
-function closePopup() 
-{
-    document.getElementById('popup').style.display = 'none';
-}
 
-document.addEventListener('DOMContentLoaded', () => 
-{
-    const form = document.querySelector('form');
-    form.addEventListener('submit', handleFormSubmit);
-});
+function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+    
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', handleFormSubmit);
+    });
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    checkUserSignInStatus();
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        checkUserSignInStatus();
+    });
 
-function checkUserSignInStatus() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
+    function checkUserSignInStatus() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
 
-    xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            // Parse the JSON response from /findUser
-            const user = JSON.parse(xhr.responseText);
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse the JSON response from /findUser
+                const user = JSON.parse(xhr.responseText);
 
-            if (!user || user.isSignedIn === false) {
-                showPopupLoging('<p><a href="/html/SignIn.html">Sign In</a> to create your events!</p><p><a href="/html/HomePage.html"> Go back</p>');
-            } 
-        } else {
-            console.error('Error fetching user status:', xhr.statusText);
-        }
-    };
+                if (!user || user.isSignedIn === false) {
+                    showPopupLoging('<p><a href="/html/SignIn.html">Sign In</a> to create your events!</p><p><a href="/html/HomePage.html"> Go back</p>');
+                } 
+            } else {
+                console.error('Error fetching user status:', xhr.statusText);
+            }
+        };
 
-    xhr.onerror = function() {
-        console.error('Request failed');
-    };
+        xhr.onerror = function() {
+            console.error('Request failed');
+        };
 
-    xhr.send();
-}
+        xhr.send();
+    }
 
 
 function showPopup(message) {

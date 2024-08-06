@@ -1,3 +1,5 @@
+const listEvents = require('./EventListing');
+
 document.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('event-date');
 
@@ -71,6 +73,7 @@ async function handleFormSubmit(event)
         });
 
         deleteEvent(eventId);
+        listEvents.displayAllEvents(); 
 
         //Display popup with message saying that it was created successfully
         const popupDiv = document.getElementById('popupMessage');

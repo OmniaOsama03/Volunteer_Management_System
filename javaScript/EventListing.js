@@ -1,12 +1,12 @@
 function isSignedIn() 
 {
-    // Create a new XMLHttpRequest object
+    
     const xhr = new XMLHttpRequest();
     
-    // Define the request method and URL to check if the user is signed in
+    // Check if the user is signed in
     xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
 
-    // Define the callback function for when the request completes
+    // Callback function for when the request completes
     xhr.onload = function() 
     {
         // Parse the JSON response
@@ -52,42 +52,53 @@ function viewProfile()
 
 async function logOut() 
 {
-    // Handle log out logic
-    try {
+    
+    try 
+    {
         // Fetch the user who is logged in
-        const response = await fetch('http://35.224.154.82/users/getLoggedInUser', {
-            method: 'GET',
-            credentials: 'include' // Assuming cookies or similar are used
+        const response = await fetch('http://35.224.154.82/users/getLoggedInUser', 
+        {
+            method: 'GET'
         });
 
         if (!response.ok) {
             throw new Error('Unable to fetch user');
         }
 
+        //Store the response
         const user = await response.json();
 
-        if (!user || !user.email) {
+        //Scenario where user isn't save
+        if (!user || !user.email) 
+        {
             alert('No user is currently logged in');
             return;
         }
 
         // Send logout request
-        const logoutResponse = await fetch('http://35.224.154.82/users/logout', {
+        const logoutResponse = await fetch('http://35.224.154.82/users/logout', 
+        {
             method: 'POST',
-            headers: {
+            headers: 
+            {
                 'Content-Type': 'application/json'
             },
+
             body: JSON.stringify({ email: user.email })
         });
 
-        if (!logoutResponse.ok) {
+        //if the status of response isn't ok
+        if (!logoutResponse.ok) 
+        {
             const errorData = await logoutResponse.json();
             throw new Error(errorData.error || 'Logout failed');
         }
 
         alert('Logout successful!');
-        window.location.href = 'SignIn.html'; // Redirect to sign-in page
-    } catch (error) {
+        window.location.href = 'SignIn.html'; // Redirect the user to sign-in page
+
+    } catch (error) 
+    {
         alert('Error logging out: ' + error.message);
     }
 }
@@ -144,7 +155,7 @@ function listEvent(userAction, arrayOfEvents)
     {
         
         const noEventsMessage = document.createElement('div');
-        noEventsMessage.classList.add('no-events-message');
+        noEventsMessage.classList.add('no-events-message'); //css
 
         if(userAction === "all")
         {
@@ -584,4 +595,6 @@ function register(eventId)
     // Send the request to find the user
     xhr.send();
 }
+
+modules.exports = displayAllEvents;
 

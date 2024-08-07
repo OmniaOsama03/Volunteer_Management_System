@@ -39,7 +39,7 @@
             const feedback = document.getElementById('passwordFeedback');
 
             const xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "http://35.224.154.82/users/checkPassword", true);
+            xhttp.open("POST", "http://35.224.154.82/checkPassword", true);
             xhttp.setRequestHeader("Content-Type", "application/json");
     
             xhttp.onload = function () {

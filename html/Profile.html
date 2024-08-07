@@ -416,7 +416,38 @@
     <footer class="footer">
         &copy; 2024 EventLink. All rights reserved.
     </footer>
+<script>
 
-           
+document.addEventListener('DOMContentLoaded', () => {
+    // Fetch and set the profile picture URL from localStorage
+    const imageUrl = localStorage.getItem('profilePictureUrl');
+    if (imageUrl) {
+        document.getElementById('profilePicture').src = imageUrl;
+    }
+});
+
+document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the default form submission
+
+    const fileInput = document.getElementById('profilePictureInput');
+    const file = fileInput.files[0];  // Get the first selected file
+    if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        
+        document.getElementById('profilePicture').src = imageUrl;
+        
+        // Store the image URL in localStorage
+        localStorage.setItem('profilePictureUrl', imageUrl);
+    }
+});
+
+</script>
+    <script src = "../javaScript/Profile.js"></script>
+
 </body>
 </html>
+
+    
+
+
+

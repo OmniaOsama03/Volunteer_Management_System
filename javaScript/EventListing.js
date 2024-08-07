@@ -13,7 +13,7 @@ function isSignedIn()
         const user = JSON.parse(xhr.responseText);
         
         // Check if user is signed in
-        if (user && user._id) 
+        if (user != null) 
         {
             // User is signed in, hide the sign-in and sign-up buttons, show the pfp
             document.getElementById('auth-buttons').style.display = 'none';
@@ -52,12 +52,10 @@ function viewProfile()
 
 async function logOut() 
 {
-    
-    try 
-    {
+    // Handle log out logic
+    try {
         // Fetch the user who is logged in
-        const response = await fetch('http://35.224.154.82/users/getLoggedInUser', 
-        {
+        const response = await fetch('http://35.224.154.82/users/getLoggedInUser', {
             method: 'GET'
         });
 
@@ -65,40 +63,30 @@ async function logOut()
             throw new Error('Unable to fetch user');
         }
 
-        //Store the response
         const user = await response.json();
 
-        //Scenario where user isn't save
-        if (!user || !user.email) 
-        {
+        if (!user || !user.email) {
             alert('No user is currently logged in');
             return;
         }
 
         // Send logout request
-        const logoutResponse = await fetch('http://35.224.154.82/users/logout', 
-        {
-            method: 'POST',
-            headers: 
-            {
+        const logoutResponse = await fetch('http://35.224.154.82/users/logout', {
+            method: 'PATCH',
+            headers: {
                 'Content-Type': 'application/json'
             },
-
             body: JSON.stringify({ email: user.email })
         });
 
-        //if the status of response isn't ok
-        if (!logoutResponse.ok) 
-        {
+        if (!logoutResponse.ok) {
             const errorData = await logoutResponse.json();
             throw new Error(errorData.error || 'Logout failed');
         }
 
         alert('Logout successful!');
-        window.location.href = 'SignIn.html'; // Redirect the user to sign-in page
-
-    } catch (error) 
-    {
+        window.location.href = 'SignIn.html'; // Redirect to sign-in page
+    } catch (error) {
         alert('Error logging out: ' + error.message);
     }
 }
@@ -247,13 +235,13 @@ function filterEvents()
 
     // Perform AJAX request
     const xhr = new XMLHttpRequest();
+
     xhr.open('GET', `http://35.224.154.82/events/filter?${params.toString()}`, true);
 
     xhr.onload = function ()
     {
         //Storing the events we got
         const events = JSON.parse(xhr.responseText);
-        console.log(events);
 
         // Display the events
         listEvent('filter', events);
@@ -296,6 +284,7 @@ function displayJoinedEvents()
 {
     // Create a new XMLHttpRequest object to find the user
     const xhr = new XMLHttpRequest();
+    
     xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
 
     xhr.onload = function() 
@@ -315,6 +304,7 @@ function displayJoinedEvents()
 
         //Fetching all events
         const allEventsXhr = new XMLHttpRequest();
+
         allEventsXhr.open('GET', 'http://35.224.154.82/events/', true);
 
         allEventsXhr.onload = function() 

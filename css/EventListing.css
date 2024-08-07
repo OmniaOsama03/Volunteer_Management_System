@@ -94,7 +94,7 @@ body, html
 {
     display: none;
     position: absolute;
-    top: 60px; /* Adjust as needed */
+    top: 60px; 
     right: 20px;
     background-color: white;
     border-radius: 5px;

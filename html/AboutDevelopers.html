@@ -217,7 +217,7 @@
         }
     </style>
 </head>
-<body onload = isSignedIn() >
+<body onload = "isSignedIn()" >
 
     <div class="navBar">
         <a href="HomePage.html">Home</a>
@@ -286,21 +286,21 @@
         }
 
         function isSignedIn() 
-    {
-    // Create a new XMLHttpRequest object
-    const xhr = new XMLHttpRequest();
-    
-    // Define the request method and URL to check if the user is signed in
-    xhr.open('GET', 'http://localhost:5000/users/findUser', true);
+        {
+        // Create a new XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
 
-    // Define the callback function for when the request completes
-    xhr.onload = function() 
-    {
-        // Parse the JSON response
-        const user = JSON.parse(xhr.responseText);
-        
+        // Define the request method and URL to check if the user is signed in
+        xhr.open('GET', 'http://35.224.154.82/users/findUser', true);
+
+        // Define the callback function for when the request completes
+        xhr.onload = function() 
+        {
+            // Parse the JSON response
+            const user = JSON.parse(xhr.responseText);
+
         // Check if user is signed in
-        if (user && user._id) 
+        if (user != null) 
         {
             // User is signed in, hide the sign-in and sign-up buttons, show the pfp
             document.getElementById('auth-buttons').style.display = 'none';
@@ -311,11 +311,12 @@
             document.getElementById('auth-buttons').style.display = 'block';
             document.getElementById('pfp').style.display = 'none';
         }
+
     };
 
     // Send the request to check if the user is signed in
     xhr.send();
-}
+    }
         function hoverOnPfp() 
         {
             document.getElementById('dim-overlay').style.display = 'block';
@@ -341,9 +342,8 @@
             // Handle log out logic
             try {
                 // Fetch the user who is logged in
-                const response = await fetch('http://localhost:5000/users/getLoggedInUser', {
-                    method: 'GET',
-                    credentials: 'include' // Assuming cookies or similar are used
+                const response = await fetch('http://35.224.154.82/users/getLoggedInUser', {
+                    method: 'GET'
                 });
 
                 if (!response.ok) {
@@ -358,8 +358,8 @@
                 }
 
                 // Send logout request
-                const logoutResponse = await fetch('http://localhost:5000/users/logout', {
-                    method: 'POST',
+                const logoutResponse = await fetch('http://35.224.154.82/users/logout', {
+                    method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -382,6 +382,7 @@
         {
             window.location.href = '/html/Profile.html';
         }
+
     </script>
 </body>
 </html>

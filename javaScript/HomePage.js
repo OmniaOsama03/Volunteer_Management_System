@@ -56,8 +56,7 @@ async function logOut()
     try {
         // Fetch the user who is logged in
         const response = await fetch('http://35.224.154.82/users/getLoggedInUser', {
-            method: 'GET',
-            credentials: 'include' // Assuming cookies or similar are used
+            method: 'GET'
         });
 
         if (!response.ok) {
@@ -73,7 +72,7 @@ async function logOut()
 
         // Send logout request
         const logoutResponse = await fetch('http://35.224.154.82/users/logout', {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },

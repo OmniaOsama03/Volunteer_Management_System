@@ -21,11 +21,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'html', 'HomePage.html'));
 });
 
-const corsOptions = {
-    origin: 'http://35.224.154.82/' 
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

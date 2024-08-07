@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Fetch and set the profile picture URL from localStorage
     const imageUrl = localStorage.getItem('profilePictureUrl');
+
     if (imageUrl) {
         document.getElementById('profilePicture').src = imageUrl;
     }
@@ -29,10 +30,6 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
         };
     }
 });
-
-
-
-
 
     document.addEventListener('DOMContentLoaded', function() {
         checkUserSignInStatus();
@@ -133,8 +130,11 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
         if (!updateResponse.ok) {
             throw new Error(updateData.error || 'Error updating password.');
         }
+
         errorSpan.textContent = '';
+
         alert('Password updated successfully!');
+
         document.getElementById('passwordForm').style.display = 'none'; // Hide the form
         } catch (error) {
             errorSpan.textContent = 'Error: ' + error.message;
@@ -159,10 +159,12 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
 
 
     // Function to check password strength
-    function checkPasswordStrength() {
+    function checkPasswordStrength() 
+    {
         const password = document.getElementById('newPassword').value;
         const feedback = document.getElementById('strengthFeedback');
-        // Sends a POST request to the server to check the strength of the password
+
+        // Sends a get request to the server to check the strength of the password
         fetch('http://35.224.154.82/users/checkPasswordStrength', {
             method: 'POST',
             headers: {
@@ -194,9 +196,9 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
         const password = document.getElementById("newPassword").value;
         const confirmPassword = document.getElementById("confirmPassword").value;
         const feedback = document.getElementById('passwordFeedback');
-        // Sends a POST request to the server to check if the passwords match
+        // Sends a GET request to the server to check if the passwords match
         fetch('http://35.224.154.82/users/checkPassword', {
-            method: 'POST',
+            method: 'post',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -228,9 +230,9 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
 
 
         async function checkEmailExists(email) {
-    try {     // Sends a POST request to the server to check if the email exists
+            try {     // Sends a get request to the server to check if the email exists
         const response = await fetch('http://35.224.154.82/users/checkEmail', {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -347,14 +349,6 @@ function validateEmail(email) {
     return emailRegex.test(email);
 }
 
-// Mock function for checking if an email exists
-async function checkEmailExists(email) {
-    // Implement actual email existence check here
-    // Return true if email exists, false otherwise
-    return false;
-}
-
-
 
     document.getElementById('logoutButton').addEventListener('click', async (event) => {
         event.preventDefault();
@@ -378,7 +372,7 @@ async function checkEmailExists(email) {
 
             // Send logout request
             const logoutResponse = await fetch('http://35.224.154.82/users/logout', {
-                method: 'POST',
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },

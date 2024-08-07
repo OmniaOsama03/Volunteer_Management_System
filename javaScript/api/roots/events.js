@@ -25,7 +25,9 @@ router.post('/', async (req, res, next) =>
     {
         const newEvent = new Event(req.body);
         await newEvent.save();
+
         res.status(201).json(newEvent);
+
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -122,8 +124,6 @@ router.get('/search', (req, res) =>
 router.get('/findEventId/:title', (req, res) => 
 {
     const title = req.params.title;
-
-    console.log("THE TITLE IN QUESTION: " + title)
 
     Event.findOne({ title: title }).then(event => 
         {

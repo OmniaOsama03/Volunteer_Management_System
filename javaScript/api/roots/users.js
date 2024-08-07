@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const secretKey = 'my$trong$ecretK3y!';
+const CryptoJS = require('crypto-js');
 
 
 //Defining the user schema
@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 //Defining the secret key
-const CryptoJS = require('crypto-js');
+const secretKey = 'my$trong$ecretK3y!';
 
 // Encryption function
 function encrypt(text) 
@@ -66,7 +66,7 @@ router.post('/', async (req, res) => {
 });
 
 
-// POST route to check password match
+// post route to check password match
 router.post('/checkPassword', (req, res) => {
     const { password, confirmPassword } = req.body;
 
@@ -184,8 +184,8 @@ router.get('/getLoggedInUser', async (req, res) =>
     }
 });
 
-// POST route for user logout
-router.post('/logout', async (req, res) => 
+// PATCH route for user logout
+router.patch('/logout', async (req, res) => 
 {
     const { email } = req.body;
 
@@ -359,8 +359,8 @@ router.patch('/updatePassword', async (req, res) =>
 });
 
 
-//POST endpoint to check if the email exists
-router.post('/checkEmail', async (req, res) => 
+//GET endpoint to check if the email exists
+router.get('/checkEmail', async (req, res) => 
 {
     const { email } = req.body;
 
@@ -382,37 +382,6 @@ router.post('/checkEmail', async (req, res) =>
         return res.status(500).json({ error: 'Internal server error' });
     }
 });
-
-
-//PATCH endpoint to update user's info
-router.patch('/updateInfo', async (req, res) => 
-{
-    const { newFirstName, newLastName, newEmail } = req.body;
-
-    try {
-        // Find the currently signed-in user
-        const user = await User.findOne({ isSignedIn: true });
-
-        if (!user) 
-        {
-            return res.status(404).json({ message: 'No user currently signed in' });
-        }
-
-        // Update user information
-        if (newFirstName) user.firstName = newFirstName;
-        if (newLastName) user.lastName = newLastName;
-        if (newEmail) user.email = newEmail;
-
-        // Save updated user information
-        await user.save();
-        res.json({ message: 'Information updated successfully' });
-
-    } catch (err) 
-    {
-        res.status(500).json({ message: 'Error updating information' });
-    }
-});
-
 
 //GET route to retieve the logged in user
 router.get('/findUser', (req, res) => 
